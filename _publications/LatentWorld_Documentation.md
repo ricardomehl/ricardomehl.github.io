@@ -24,15 +24,14 @@ tags:
   - computer_science
 ---
 
-<p style="text-align:center;">Text_content
-	
-<h1>Latent World</h1>
-
-Ricardo Mehl 
-Design for Digital Futures
-
-</p>
-
+<div style="text-align: center;">
+  
+  <h1>Latent World</h1>
+  
+  Ricardo Mehl 
+  Design for Digital Futures
+  
+</div>
 
 
 
