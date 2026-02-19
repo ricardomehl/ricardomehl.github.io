@@ -1,9 +1,9 @@
 ---
-title: "Paper Title Number 1"
+title: "Latent World"
 collection: publications
 category: manuscripts
-permalink: /publication/2009-10-01-paper-title-number-1
-excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
+permalink: /publication/LatentWorld
+excerpt: 'This project is an extrusion of the paper Hessian Geometry of Latent Space in Generative Models.pdf which proposes a way to explore the Latent Space like you would explore a country.'
 date: 2009-10-01
 venue: 'Journal 1'
 slidesurl: 'https://ricardomehl.github.io/files/slides1.pdf'
