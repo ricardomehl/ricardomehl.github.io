@@ -404,7 +404,11 @@ betas = np.linspace(0.4, 0.6, sampling_steps) # beta interval (colums/y)
 
 To accelerate grid exploration, I implemented GPU batching, processing multiple latents in parallel through single U-Net forward passes per denoising step. On 24GB VRAM (RTX 4090), a batch size of 8-12 hits the sweet spot, reducing per-image reverse diffusion from 2s to 0.3s (6.7× speedup).
 
-![[batching_1.png|300]]
+
+<img src="/images/Komprimiert/batching_1.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
 
 Latents reshape from single `[1, 4, 64, 64]` to batches (e.g., for batch size 8) `[8, 4, 64, 64]` via concatenation along the batch dimension, with metadata ($$α, β$$ coordinates) tracked for reconstruction. Processed batches are stored as `(latent_tensor, metadata)` tuples and passed to the pipeline.
 
@@ -568,7 +572,7 @@ A notable video is the uncut stream of all 341,805 images of the Cassini's Satur
 **negative prompts:** 
 	*"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
 
-With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $\alpha, \beta$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $|\mathbf{z}| \gg 128$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
+With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\mathbf{z}| \gg 128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
 
 <img src="/images/Komprimiert/out_of_latent_space.jpg" 
      alt="Beschreibung" 
