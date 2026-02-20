@@ -253,6 +253,17 @@ As dimension $$d$$ increases, the annulus thins relative to the radius $$\sqrt{d
 If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 128$$ using the `tensor.norm()` function, calculating the magnitudes of the latents $$z_0, z_1, z_2$$ gives positions very close to the annulus.
 
 
+table {
+    background-color: white;
+    color: black;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
 
 
 | Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
