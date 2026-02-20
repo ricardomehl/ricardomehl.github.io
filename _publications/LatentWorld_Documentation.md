@@ -13,7 +13,12 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
-LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+  <h1>LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
+</div>
+
+
+#LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images
 
 Ricardo Mehl
 
