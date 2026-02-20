@@ -454,7 +454,7 @@ Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly:
 
 At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp boundary separates stable cat ↔ mountain domains, with fractal instability concentrated at the transition's northern edge, where the anomaly was spotted.
 
-<img src="/images/Komprimiert/50x50 plot.png" 
+<img src="/images/Komprimiert/50x50 plot.jpg" 
      alt="Beschreibung" 
      class="image_medium">
 
