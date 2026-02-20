@@ -1,20 +1,17 @@
 ---
-title: "Latent World Documentation"
+title: ""
 collection: publications
 category: manuscripts
 permalink: /publication/LatentWorld_Documentation
 excerpt: 'This project is an extrusion of the paper Hessian Geometry of Latent Space in Generative Models.pdf which proposes a way to explore the Latent Space like you would explore a country.'
-date: 2009-10-01
-venue: 'Journal 1'
+date: 2026-20-02
+venue: 'Publications'
 slidesurl: 'https://ricardomehl.github.io/files/slides1.pdf'
 paperurl: 'https://ricardomehl.github.io/files/paper1.pdf'
 bibtexurl: 'https://ricardomehl.github.io/files/bibtex1.bib'
-citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
-
+citation: 'Mehl Ricardo, You. (2026). &quot;LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images Number 1.&quot; <i>Journal 1</i>. 1(1).'
 ---
 
-
-/* IMAGE STYLING */
 <style>
 img {
     height: auto;
@@ -37,14 +34,11 @@ img {
 
 
 
-/*-----------------------------------------------------------------------------------------------------------------------*/
-
-
 <div style="text-align: center;">
-  <h1>LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
-  <p>Ricardo Mehl</p>
-  <p>MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm</p>
-  <p>mehlri77989@th-nuernberg.de</p>
+  <h1 style="margin-bottom: 0.5em;">LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
+  <p style="margin: 0.2em 0;">Ricardo Mehl</p>
+  <p style="margin: 0.2em 0;">MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm</p>
+  <p style="margin: 0.2em 0;">mehlri77989@th-nuernberg.de</p>
 </div>
 
 
