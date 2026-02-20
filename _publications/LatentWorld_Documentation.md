@@ -22,6 +22,7 @@ img {
     display: block;
     margin: 0 auto;
 }
+</style>
 
 
 <div style="text-align: center;">
@@ -454,5 +455,4 @@ With the depicted prompts, I sampled the grid for novel discoveries. Trying to p
 [lobashev2025]: https://arxiv.org/abs/XXXX.XXXXX Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*.
 
 																				   
-</style>
 [cassini-video]: https://www.youtube.com/watch?v=4c8eSr7x7AA "11 Years of Cassini Saturn Photos in 3 hrs 48 min" (n.d.).
