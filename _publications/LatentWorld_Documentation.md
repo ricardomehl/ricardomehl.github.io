@@ -33,7 +33,6 @@ img {
     width: 40%;
     max-width: 300px;
 }
-
 </style>
 
 
@@ -64,6 +63,10 @@ This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., 
 ### Implications: Semantic Archipelagos
 
 The implications suggest that no clear semantic bridge exists between concepts like "cat" and "mountain." My hypothesis is that because human categories are, by definition, an imperfect map cast over a territory, a partial overlay of which an indissoluble residue lingers beyond language or imagination, what psychoanalyst Jacques Lacan would describe as *"the Real"*. The unrepresentable excess that neural networks, trained on our vast conceptual datasets, cannot help but retrace in their own fractured geometry. If such a space is described in terms of geography, it emerges as an archipelago of semi-disconnected islands of varying sizes.
+
+<img src="/images/Komprimiert/semantic_landscape.png" 
+     alt="Beschreibung" 
+     class="image_medium">
 
 ### Artistic Motivation: Embracing Model Failure
 
