@@ -21,6 +21,12 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 </div>
 
 
+$$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
+
+\\[z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)\\]
+
+
+
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_Gauss_4x.png" alt="Beschreibung">
 
 > [!NOTE]
@@ -108,16 +114,17 @@ Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps
 
 ![[first_latents.png|350]]
 
+Through linear combination \\[z = (z_0 - z_1) + (z_0 - z_2)\\] the triangle transforms into a parallelogram:
 
-Through linear combination $z = (z_0 - z_1) + (z_0 - z_2$) the triangle transforms into a parallelogram:
+Introducing scalars \\[ \alpha \\] and \\[ \beta \\] for the vectors \\[ (z_0 - z_1) \\] and \\[ (z_0 - z_2) \\] respectively, enables to parameterize the space to find any point \\[ z \\] through barycentric combinations of vertices \\[ (\alpha, \beta \in [0,1]) \\].
 
-Introducing scalars $α$ and $β$ for the vectors ($z_0 - z_1$) and ($z_0 - z_2$) respectively, enables to parameterize the space to find any point $z$ through barycentric combinations of vertices ($α, β ∈ [0,1]$). 
-
-$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$
+$$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
 ![[bayersic_combination.png|500]]
 
-Decoding grid point $z$ immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
+
+
+Decoding grid point \\[z\\] immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
 
 ![[decoding_z.png|500]]
 
@@ -139,18 +146,19 @@ Increasing the dimension to 4D starts to lose the ability to depict the distribu
 
 ![[4D_gauss_4x.png|300]]
 
-Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of $4 \times 64 \times 64 = 16384$.
+Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of \\[4 \times 64 \times 64 = 16384\\].
 
-Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of $16384-1$ dimensions.
+Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of \\[16384-1\\] dimensions.
 
 ![[dimension-1_title.png]]
 
-This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere ($S^{d-1}$).
+This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere (\\[S^{d-1}\\]).
 
 
 ![[hypersphere_stable_diffusion.png|300]]
 
 Thus latent vectors that are normalized to to this probability density value, can be decoded into plausible images.
+\\[β\\]
 
 
 ![[z_norm.png|400]]
