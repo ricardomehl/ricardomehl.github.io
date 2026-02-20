@@ -72,6 +72,19 @@ The implications suggest that no clear semantic bridge exists between concepts l
 
 While Lobashev et al. (2025) aimed to map coherent paths through these phase transitions for sensible image interpolation, my interest veered toward the rifts themselves: deliberate expeditions into semantic fractures to unearth new, unusual images. To me, generative AI's most captivating outputs emerge when it essentially "fails" at what it does—producing glitches and anomalies that, like an artist's brushstroke, alter what they depict but reveal something deeper about the medium and its process. These "neural blobs" or hallucinations parallel "light leaks" or "grain" in photography: flaws that transform into stylistic qualities, artifacts of process that artists actively seek out.
 
+<img src="/images/Komprimiert/neural_poster_keingarten.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+
+<img src="/images/Komprimiert/massive_attack_cover.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
+<img src="/images/Komprimiert/frank_manzano.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+
+
 ## Methods: Replicating Latent Cartography
 
 ### Replicating Lobashev et al.'s Experimental Protocol
