@@ -13,8 +13,9 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
+
+/* IMAGE STYLING */
 <style>
-/* Alle Bilder nur in dieser Markdown-Datei */
 img {
     width: 70%;
     max-width: 600px;
@@ -22,7 +23,19 @@ img {
     display: block;
     margin: 0 auto;
 }
+.image_big {
+    width: 90%;
+    max-width: 1000px;
+}
+.image_small {
+    width: 40%;
+    max-width: 300px;
+}
 </style>
+
+
+
+
 
 
 <div style="text-align: center;">
@@ -38,7 +51,9 @@ $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 \\[z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)\\]
 
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_Gauss_4x.png" alt="Beschreibung">
+<img src="/images/Komprimiert/2D_Gauss_4x.png" 
+     alt="Beschreibung" 
+     class="small-image">
 
 > [!NOTE]
 > Vergiss nicht KEYWORDS (4-6)
@@ -51,7 +66,9 @@ The latent space in generative models like Stable Diffusion is a compressed, abs
 
 This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). _Hessian Geometry of Latent Space in Generative Models_, which conceptualizes latent space exploration as navigating a country. Their exploration was deliberately neutral, employing minimal guidance to unveil the latent space's inherent geometry without targeted semantic steering. Using Stable Diffusion 1.5 with generic prompts such as "High quality picture, 4k, detailed" and negative prompts such as "blurry, ugly, stock photo," the authors let the model's training biases surface organically. By scattering a two-dimensional grid of latents, they analyzed the space's geometry, uncovering phase transitions between semantic concepts such as "cat" and "mountain." These transitions manifest as rifts where the diffusion model becomes unstable, generating fractal patterns of either concept that extend to the model's bit-level resolution. Notably, interpolations within certain rifts introduce emergent third concepts, such as "car," highlighting the latent space's intricate, non-linear structure.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/paper_hessian_geometry.jpg" alt="Beschreibung">
+<img src="/images/Komprimiert/paper_hessian_geometry.jpg" 
+     alt="Beschreibung" 
+     class="small-image">
 
 
 ### Implications: Semantic Archipelagos
@@ -116,14 +133,16 @@ z1 = z1.permute(0, 3, 1, 2)
 z2 = z2.permute(0, 3, 1, 2)
 ```
 
-
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/seeds.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/seeds.png" 
+     alt="Beschreibung" 
+     class="small-image">
 
 
 From the three base latents, a triangle naturally forms in latent space:
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/forming_a_triangle.png" alt="Beschreibung">
+<img src="/images/Komprimiert/forming_a_triangle.png" 
+     alt="Beschreibung" 
+     class="small-image">
 
 Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
 
