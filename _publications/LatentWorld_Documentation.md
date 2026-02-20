@@ -252,11 +252,45 @@ As dimension $$d$$ increases, the annulus thins relative to the radius $$\sqrt{d
 	 
 If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 128$$ using the `tensor.norm()` function, calculating the magnitudes of the latents $$z_0, z_1, z_2$$ gives positions very close to the annulus.
 
+
+
+
 | Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
 | ------ | -------- | ------------------------------ |
 | $z0$   | 128.1250 | +0.1250                        |
 | $z1$   | 127.1250 | -0.8750                        |
 | $z2$   | 127.3125 | -0.6875                        |
+
+
+
+<table style="background-color: white; color: black;">
+  <thead>
+    <tr>
+      <th>Latent</th>
+      <th>∥z∥</th>
+      <th>Distance from √d = 128</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>z0</td>
+      <td>128.1250</td>
+      <td>+0.1250</td>
+    </tr>
+    <tr>
+      <td>z1</td>
+      <td>127.1250</td>
+      <td>-0.8750</td>
+    </tr>
+    <tr>
+      <td>z2</td>
+      <td>127.3125</td>
+      <td>-0.6875</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 While point $$z$$, calculated through linear combination, drifts far outside: $$\Vert\mathbf{z}\Vert = 219.8750 \gg \sqrt{d}$$. If normalized to $$\sqrt{d} = 128$$, latent $$z$$ will return a plausible image.
 
