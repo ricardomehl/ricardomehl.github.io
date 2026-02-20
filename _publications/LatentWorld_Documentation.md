@@ -51,6 +51,9 @@ The latent space in generative models like Stable Diffusion is a compressed, abs
 
 This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). _Hessian Geometry of Latent Space in Generative Models_, which conceptualizes latent space exploration as navigating a country. Their exploration was deliberately neutral, employing minimal guidance to unveil the latent space's inherent geometry without targeted semantic steering. Using Stable Diffusion 1.5 with generic prompts such as "High quality picture, 4k, detailed" and negative prompts such as "blurry, ugly, stock photo," the authors let the model's training biases surface organically. By scattering a two-dimensional grid of latents, they analyzed the space's geometry, uncovering phase transitions between semantic concepts such as "cat" and "mountain." These transitions manifest as rifts where the diffusion model becomes unstable, generating fractal patterns of either concept that extend to the model's bit-level resolution. Notably, interpolations within certain rifts introduce emergent third concepts, such as "car," highlighting the latent space's intricate, non-linear structure.
 
+<img src="{{ricardomehl.github.io}}/images/Komprimiert/paper_hessian_geometry.jpg" alt="Beschreibung">
+
+
 ### Implications: Semantic Archipelagos
 
 The implications suggest that no clear semantic bridge exists between concepts like "cat" and "mountain." My hypothesis is that because human categories are, by definition, an imperfect map cast over a territory, a partial overlay of which an indissoluble residue lingers beyond language or imagination, what psychoanalyst Jacques Lacan would describe as *"the Real"*. The unrepresentable excess that neural networks, trained on our vast conceptual datasets, cannot help but retrace in their own fractured geometry. If such a space is described in terms of geography, it emerges as an archipelago of semi-disconnected islands of varying sizes.
@@ -411,7 +414,10 @@ The bit-level Lipschitz divergence is reproducible and confirms Lobashev et al. 
 
 Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et al. (2025), in _Probability Density Geodesics in Image Diffusion Latent Space_, tackle similar latent geometry challenges, developing methods to encode existing images and trace interpolations between them. I was particularly amused by their example of interpolating between actor Dwayne "The Rock" Johnson and a literal rock.
 
-![[the rock to rock.png]]
+<img src="{{ricardomehl.github.io}}/images/Komprimiert/paper_density_geodesics.jpg" alt="Beschreibung">
+
+<img src="{{ricardomehl.github.io}}/images/Komprimiert/the rock to rock.png" alt="Beschreibung">
+
 
 This echoed a conversation with a middle school art teacher friend, who introduced her class's _"Symbiosis"_ project: students chose two contrasting texture patches and glued them onto a sheet of paper, then hand-drew the space in between. A form of manual interpolation.
 
