@@ -4,7 +4,7 @@ collection: publications
 category: manuscripts
 permalink: /publication/LatentWorld_Documentation
 excerpt: 'This project is an extrusion of the paper Hessian Geometry of Latent Space in Generative Models.pdf which proposes a way to explore the Latent Space like you would explore a country.'
-date: 2026-20-02
+date: 2026-02-20
 venue: 'Publications'
 slidesurl: 'https://ricardomehl.github.io/files/slides1.pdf'
 paperurl: 'https://ricardomehl.github.io/files/paper1.pdf'
