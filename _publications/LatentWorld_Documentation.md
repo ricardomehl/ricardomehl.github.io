@@ -13,6 +13,17 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
+<style>
+/* Alle Bilder nur in dieser Markdown-Datei */
+img {
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
 <div style="text-align: center;">
   <h1>LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
   <p>Ricardo Mehl</p>
@@ -407,6 +418,7 @@ This echoed a conversation with a middle school art teacher friend, who introduc
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/symbiose (8).jpeg" alt="Beschreibung">
 
+
 What sparked my interest was the idea of encoding these texture patches as latent vertices and then comparing the resulting interpolation grid with their human-drawn counterparts.
 
 Initial experiments hit a hard limit. It seemed that either my encoding or decoding approach was flawed, resulting in malformed image diffusion. Even importing the original _"cat/mountain"_ images from previous experiments proved troubling. This wall seemed intractable for now, so I decided to revisit it later with the necessary knowledge and focus first on a different approach.
@@ -441,4 +453,6 @@ With the depicted prompts, I sampled the grid for novel discoveries. Trying to p
 
 [lobashev2025]: https://arxiv.org/abs/XXXX.XXXXX Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*.
 
+																				   
+</style>
 [cassini-video]: https://www.youtube.com/watch?v=4c8eSr7x7AA "11 Years of Cassini Saturn Photos in 3 hrs 48 min" (n.d.).
