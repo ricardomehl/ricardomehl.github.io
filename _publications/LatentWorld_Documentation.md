@@ -255,43 +255,11 @@ If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 
 
 
 
-
-
-
 | Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
 | ------ | -------- | ------------------------------ |
 | $z0$   | 128.1250 | +0.1250                        |
 | $z1$   | 127.1250 | -0.8750                        |
 | $z2$   | 127.3125 | -0.6875                        |
-
-
-
-<table style="background-color: white; color: black;">
-  <thead>
-    <tr>
-      <th>Latent</th>
-      <th>∥z∥</th>
-      <th>Distance from √d = 128</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>z0</td>
-      <td>128.1250</td>
-      <td>+0.1250</td>
-    </tr>
-    <tr>
-      <td>z1</td>
-      <td>127.1250</td>
-      <td>-0.8750</td>
-    </tr>
-    <tr>
-      <td>z2</td>
-      <td>127.3125</td>
-      <td>-0.6875</td>
-    </tr>
-  </tbody>
-</table>
 
 
 
