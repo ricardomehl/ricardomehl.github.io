@@ -298,7 +298,7 @@ example_noise = torch.randn(1, 4, 64, 64).to(device)
 global_target_norm = torch.norm(example_noise).item() # ≈128
 ```
 
-point $z$ can be normalized and decoded into a plausible image. 
+point $$z$$ can be normalized and decoded into a plausible image. 
 
 <img src="/images/Komprimiert/grid_functioning.png" 
      alt="Beschreibung" 
@@ -307,6 +307,7 @@ point $z$ can be normalized and decoded into a plausible image.
 With normalization solved, the parallelogram becomes fully decodable. Lobashev et al. (2025) sampled **60,000 points** for exhaustive analysis; my home setup maxed out at **2,500**, still revealing fractal rifts clearly.
 
 Barycentric combinations generate any grid point $$z$$:
+
 $$z(\alpha,\beta) = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
 Nested loops iterate $$α, β ∈ [0,1]$$ gridwise at the desired resolution (e.g., $$5\times5 = 25$$ latents).
@@ -387,7 +388,7 @@ To accelerate grid exploration, I implemented GPU batching, processing multiple 
 
 <img src="/images/Komprimiert/batching_1.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 	 
 
 Latents reshape from single `[1, 4, 64, 64]` to batches (e.g., for batch size 8) `[8, 4, 64, 64]` via concatenation along the batch dimension, with metadata ($$α, β$$ coordinates) tracked for reconstruction. Processed batches are stored as `(latent_tensor, metadata)` tuples and passed to the pipeline.
@@ -443,7 +444,7 @@ Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent
 
 Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly: a hybrid form blending both mountain and cat features, failing to resolve into either concept. This could be indicative of the phase transitions discussed in the paper.
 
-<img src="/images/Komprimiert/10x10 grid.png" 
+<img src="/images/Komprimiert/10x10 grid.jpg" 
      alt="Beschreibung" 
      class="image_medium">
 
