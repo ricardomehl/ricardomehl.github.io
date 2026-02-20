@@ -144,7 +144,7 @@ From the three base latents, a triangle naturally forms in latent space:
      alt="Beschreibung" 
      class="small-image">
 
-Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
+Decoding these corner latents via the replicated pipeline ($$η$$=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/paper pipeline.png" alt="Beschreibung">
 
@@ -152,7 +152,7 @@ Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps
 
 Through linear combination $$z = (z_0 - z_1) + (z_0 - z_2)$$ the triangle transforms into a parallelogram:
 
-Introducing scalars $$\alpha$$ and \$$\beta$$ for the vectors $$(z_0 - z_1)$$ and $$(z_0 - z_2)$$ respectively, enables to parameterize the space to find any point $$z$$ through barycentric combinations of vertices $$\alpha, \beta \in [0,1])$$.
+Introducing scalars $$\alpha$$ and $$\beta$$ for the vectors $$(z_0 - z_1)$$ and $$(z_0 - z_2)$$ respectively, enables to parameterize the space to find any point $$z$$ through barycentric combinations of vertices $$\alpha, \beta \in [0,1])$$.
 
 $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
@@ -199,7 +199,7 @@ $$β$$
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/grid_functioning.png" alt="Beschreibung">
 
-This raises a crucial question: If normalization to the Gaussian hypersphere was required for the calculated point $z$ to produce plausible images, why did the latents $z_0, z_1, z_2$ appear on it without any adjustment?
+This raises a crucial question: If normalization to the Gaussian hypersphere was required for the calculated point $$z$$ to produce plausible images, why did the latents $$z_0, z_1, z_2$$ appear on it without any adjustment?
 
 This is the latent that is constructed:
 
@@ -219,7 +219,7 @@ A `randn_tensor()` usually has an even chance of being created at every point in
 
 in high dimensions ($$d\gg1$$), nearly all probability mass concentrates in a thin shell (or annulus) around the center at a radius of approximately $$\sqrt{d}$$ in $$d$$-dimensional space.
 
-As dimension $$d$$ increases, the annulus thins relative to the radius $\sqrt{d}$. This "soap bubble" effect ensures that the vast majority of sampled points in $$\mathcal{N}(0,I)$$ concentrate on the hyperspherical shell.
+As dimension $$d$$ increases, the annulus thins relative to the radius $$\sqrt{d}$$. This "soap bubble" effect ensures that the vast majority of sampled points in $$\mathcal{N}(0,I)$$ concentrate on the hyperspherical shell.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass.png" alt="Beschreibung">
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass_2.png" alt="Beschreibung">
@@ -319,7 +319,7 @@ for batch_idx, (latent_batch_linked, metadata_batch) in enumerate(batch_list):
 ```
 
 
-The result is for this example a 5x5 grid of images that can be sampled at a smaller area of interest for deeper analysis, by changing start and end points of the intervals for $α$ and $ß$. 
+The result is for this example a 5x5 grid of images that can be sampled at a smaller area of interest for deeper analysis, by changing start and end points of the intervals for $$α$$ and $$ß$$. 
 
 Example adapted for sampling a 5x5 grid in the center for $$α, β ∈ [0.4,0.6]$$:
 
@@ -337,7 +337,7 @@ To accelerate grid exploration, I implemented GPU batching, processing multiple 
 
 ![[batching_1.png|300]]
 
-Latents reshape from single `[1, 4, 64, 64]` to batches (e.g., for batch size 8) `[8, 4, 64, 64]` via concatenation along the batch dimension, with metadata ($α, β$ coordinates) tracked for reconstruction. Processed batches are stored as `(latent_tensor, metadata)` tuples and passed to the pipeline.
+Latents reshape from single `[1, 4, 64, 64]` to batches (e.g., for batch size 8) `[8, 4, 64, 64]` via concatenation along the batch dimension, with metadata ($$α, β$$ coordinates) tracked for reconstruction. Processed batches are stored as `(latent_tensor, metadata)` tuples and passed to the pipeline.
 
 ```
 batch_list = [
