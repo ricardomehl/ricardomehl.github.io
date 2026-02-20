@@ -26,7 +26,6 @@ $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 \\[z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)\\]
 
 
-
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_Gauss_4x.png" alt="Beschreibung">
 
 > [!NOTE]
@@ -52,7 +51,7 @@ While Lobashev et al. (2025) aimed to map coherent paths through these phase tra
 
 ### Replicating Lobashev et al.'s Experimental Protocol
 
-To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to \\[η = 0\\] (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
+To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to $$η = 0$$ (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
 
 ### GPU-Optimized Experimental Infrastructure
 
@@ -64,7 +63,7 @@ For **512x512px** images, the model requires a base memory of **4-6 GB**, workin
 
 ### Grid Spanning in Latent Space
 
-Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents \\[z_0, z_1, z_2\\] form the corners, from which a fourth point \\[z\\] is calculated via vector addition: \\[z = (z_0 - z_1) + (z_0 - z_2)\\]. I then sampled the grid points by iterating through vector scalars \\[α\\] and \\[β\\] to obtain different position values for \\[z\\].
+Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents $$z_0, z_1, z_2$$ form the corners, from which a fourth point $$z$$ is calculated via vector addition: $$z = (z_0 - z_1) + (z_0 - z_2)$$. I then sampled the grid points by iterating through vector scalars $$α$$ and $$β$$ to obtain different position values for $$z$$.
 
 I started by generating three random latents. A latent is a compressed numerical representation of an image in latent space. It is **1/8** of the output image size, meaning a **64x64** latent results in a **512x512px** image. We decode this latent through a diffusion pipeline.
 
@@ -117,9 +116,9 @@ Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/first_latents.png" alt="Beschreibung">
 
-Through linear combination \\[z = (z_0 - z_1) + (z_0 - z_2)\\] the triangle transforms into a parallelogram:
+Through linear combination $$z = (z_0 - z_1) + (z_0 - z_2)$$ the triangle transforms into a parallelogram:
 
-Introducing scalars \\[ \alpha \\] and \\[ \beta \\] for the vectors \\[ (z_0 - z_1) \\] and \\[ (z_0 - z_2) \\] respectively, enables to parameterize the space to find any point \\[ z \\] through barycentric combinations of vertices \\[ (\alpha, \beta \in [0,1]) \\].
+Introducing scalars $$\alpha$$ and \$$\beta$$ for the vectors $$(z_0 - z_1)$$ and $$(z_0 - z_2)$$ respectively, enables to parameterize the space to find any point $$z$$ through barycentric combinations of vertices $$\alpha, \beta \in [0,1])$$.
 
 $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
@@ -127,7 +126,7 @@ $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/bayersic_combination.png" alt="Beschreibung">
 
 
-Decoding grid point \\[z\\] immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
+Decoding grid point $$z$$ immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/decoding_z.png" alt="Beschreibung">
 
@@ -149,18 +148,18 @@ Increasing the dimension to 4D starts to lose the ability to depict the distribu
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/4D_gauss_4x.png" alt="Beschreibung">
 
-Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of \\[4 \times 64 \times 64 = 16384\\].
+Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of $$4 \times 64 \times 64 = 16384$$.
 
-Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of \\[16384-1\\] dimensions.
+Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of $$16384-1$$ dimensions.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/dimension-1_title.png" alt="Beschreibung">
 
-This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere (\\[S^{d-1}\\]).
+This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere ($$S^{d-1}$$).
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/hypersphere_stable_diffusion.png" alt="Beschreibung">
 
 Thus latent vectors that are normalized to to this probability density value, can be decoded into plausible images.
-\\[β\\]
+$$β$$
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/z_norm.png" alt="Beschreibung">
 
@@ -179,19 +178,19 @@ z0 = randn_tensor((1, latent_height, latent_width, latent_channels)
                   dtype=torch.float16)
 ```
 
-A `randn_tensor()` usually has an even chance of being created at every point in a Gaussian $\mathcal{N}(0,I)$. According to Gaussian Annulus Theorem, high-dimensional Gaussians like Stable Diffusion's latent space defy 2D bell curve intuitions. While in **low dimensions**, probability mass clusters near the origin,
+A `randn_tensor()` usually has an even chance of being created at every point in a Gaussian $$\mathcal{N}(0,I)$$. According to Gaussian Annulus Theorem, high-dimensional Gaussians like Stable Diffusion's latent space defy 2D bell curve intuitions. While in **low dimensions**, probability mass clusters near the origin,
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_centermass.png" alt="Beschreibung">
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/3D_centermass.png" alt="Beschreibung">
 
-in high dimensions ($d\gg1$), nearly all probability mass concentrates in a thin shell (or annulus) around the center at a radius of approximately $\sqrt{d}$ in $d$-dimensional space.
+in high dimensions ($$d\gg1$$), nearly all probability mass concentrates in a thin shell (or annulus) around the center at a radius of approximately $$\sqrt{d}$$ in $$d$$-dimensional space.
 
-As dimension $d$ increases, the annulus thins relative to the radius $\sqrt{d}$. This "soap bubble" effect ensures that the vast majority of sampled points in $\mathcal{N}(0,I)$ concentrate on the hyperspherical shell.
+As dimension $$d$$ increases, the annulus thins relative to the radius $\sqrt{d}$. This "soap bubble" effect ensures that the vast majority of sampled points in $$\mathcal{N}(0,I)$$ concentrate on the hyperspherical shell.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass.png" alt="Beschreibung">
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass_2.png" alt="Beschreibung">
 
-If applied to the latent space of Stable Diffusion, $\sqrt{d} = \sqrt{16384} = 128$ using the `tensor.norm()` function, calculating the magnitudes of the latents $z_0, z_1, z_2$ gives positions very close to the annulus.
+If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 128$$ using the `tensor.norm()` function, calculating the magnitudes of the latents $$z_0, z_1, z_2$$ gives positions very close to the annulus.
 
 | Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
 | ------ | -------- | ------------------------------ |
@@ -199,13 +198,13 @@ If applied to the latent space of Stable Diffusion, $\sqrt{d} = \sqrt{16384} = 1
 | $z1$   | 127.1250 | -0.8750                        |
 | $z2$   | 127.3125 | -0.6875                        |
 
-While point $z$, calculated through linear combination, drifts far outside: $\Vert\mathbf{z}\Vert = 219.8750 \gg \sqrt{d}$. If normalized to $\sqrt{d} = 128$, latent $z$ will return a plausible image.
+While point $$z$$, calculated through linear combination, drifts far outside: $$\Vert\mathbf{z}\Vert = 219.8750 \gg \sqrt{d}$$. If normalized to $$\sqrt{d} = 128$$, latent $$z$$ will return a plausible image.
 
 ### Sampling the Grid
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/take a guess.png" alt="Beschreibung">
 
-By establishing a local `target_norm` from latents $z0,z1,z2$,
+By establishing a local `target_norm` from latents $$z0,z1,z2$$,
 
 ```
 # Local normalization target
@@ -226,10 +225,10 @@ point $z$ can be normalized and decoded into a plausible image.
 
 With normalization solved, the parallelogram becomes fully decodable. Lobashev et al. (2025) sampled **60,000 points** for exhaustive analysis; my home setup maxed out at **2,500**, still revealing fractal rifts clearly.
 
-Barycentric combinations generate any grid point $z$:
+Barycentric combinations generate any grid point $$z$$:
 $$z(\alpha,\beta) = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
-Nested loops iterate $α, β ∈ [0,1]$ gridwise at the desired resolution (e.g., $5\times5 = 25$ latents).
+Nested loops iterate $$α, β ∈ [0,1]$$ gridwise at the desired resolution (e.g., $$5\times5 = 25$$ latents).
 
 ```
 # Grid parameters
@@ -285,12 +284,10 @@ for batch_idx, (latent_batch_linked, metadata_batch) in enumerate(batch_list):
     )
 ```
 
-> [!NOTE]
-> Das musst du nochmal etwas aufräumen! am besten ein neues Jupyter Lab erzeugen!
 
 The result is for this example a 5x5 grid of images that can be sampled at a smaller area of interest for deeper analysis, by changing start and end points of the intervals for $α$ and $ß$. 
 
-Example adapted for sampling a 5x5 grid in the center for $α, β ∈ [0.4,0.6]$:
+Example adapted for sampling a 5x5 grid in the center for $$α, β ∈ [0.4,0.6]$$:
 
 ```
 sampling_steps = 5
@@ -316,7 +313,7 @@ batch_list = [
 ]
 ```
 
-To avoid token mismatch between the latents and the text prompts for U-Net cross-attention, the number of text-embedding tokens must match the tokens in the batch. While single latents have $4,096$ tokens ($1\times64\times64$) matching text embeddings, batches (e.g., 8) scale to $32,768$ tokens ($8\times64\times64$). For a dynamic pipeline ensuring token parity for parallel denoising, I set `num_images_per_prompt` to match the `batch_size` of the latent tensor.
+To avoid token mismatch between the latents and the text prompts for U-Net cross-attention, the number of text-embedding tokens must match the tokens in the batch. While single latents have $$4,096$$ tokens ($$1\times64\times64$$) matching text embeddings, batches (e.g., 8) scale to $$32,768$$ tokens ($$8\times64\times64$$). For a dynamic pipeline ensuring token parity for parallel denoising, I set `num_images_per_prompt` to match the `batch_size` of the latent tensor.
 
 ```
 # Pipeline parameters (paper configuration)
@@ -344,7 +341,7 @@ The resulting images are exported to disk, with an accompanying `metadata.json` 
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/folder and metadata.png" alt="Beschreibung">
 
-Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent grid with dual annotations: grid indices ($x, y$ intervals) and parameter coordinates ($\alpha$, $\beta$) for each point.
+Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent grid with dual annotations: grid indices ($$x, y$$ intervals) and parameter coordinates ($$\alpha$$, $$\beta$$) for each point.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/plot_system.jpg" alt="Beschreibung">
 
@@ -369,7 +366,7 @@ At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp bou
 
 ### CLIP Lipschitz Analysis
 
-Lobashev et al. (2025) rigorously quantify this geometry. To detect the distinct phases, they trained a neural network on the log-partition function to reconstruct the Fisher information metric of the space, which had discontinuities along the borders between concepts. Through this approach, they calculated geodesic paths between semantic domains, achieving smooth interpolations. To quantify model instability at transitions, they used the Lipschitz constant—a measure tracking the rate of change of a function. At phase boundaries, this constant diverges, suggesting extreme fluctuations in model output resulting from only small changes to the input latent vector, even at scales of $10^{-8}$ (the model's resolution at half-precision bit level).
+Lobashev et al. (2025) rigorously quantify this geometry. To detect the distinct phases, they trained a neural network on the log-partition function to reconstruct the Fisher information metric of the space, which had discontinuities along the borders between concepts. Through this approach, they calculated geodesic paths between semantic domains, achieving smooth interpolations. To quantify model instability at transitions, they used the Lipschitz constant—a measure tracking the rate of change of a function. At phase boundaries, this constant diverges, suggesting extreme fluctuations in model output resulting from only small changes to the input latent vector, even at scales of $$10^{-8}$$ (the model's resolution at half-precision bit level).
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/lipschitz_stable.png" alt="Beschreibung">
 
@@ -380,7 +377,7 @@ Each grid image is fed through CLIP's image encoder to extract image features yi
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/clip_fingerprint.png" alt="Beschreibung">
 
 
-These fingerprints are formed into a feature map that preserves the original ($\alpha, \beta$) coordinates. This feature map is analyzed for local gradient magnitudes across horizontal and vertical axes, then used to compute the Lipschitz constant, which measures output sensitivity between grid neighbors.
+These fingerprints are formed into a feature map that preserves the original ($$\alpha, \beta$$) coordinates. This feature map is analyzed for local gradient magnitudes across horizontal and vertical axes, then used to compute the Lipschitz constant, which measures output sensitivity between grid neighbors.
 
 <img src="{{ricardomehl.github.io}}/images/Komprimiert/Lipschitz_at_Fractal.png" alt="Beschreibung">
 
@@ -418,7 +415,7 @@ Initial experiments hit a hard limit. It seemed that either my encoding or decod
 
 ### Exploring Concepts beyond neutral prompts
 
-Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by \\[z_0, z_1, z_2, z\\], replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
+Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by $$z_0, z_1, z_2, z$$, replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
 
 Here is an exploration of textures and ornaments:
 
