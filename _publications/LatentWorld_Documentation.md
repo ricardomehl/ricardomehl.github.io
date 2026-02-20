@@ -560,8 +560,7 @@ With the depicted prompts, I sampled the grid for novel discoveries. Trying to p
 
 ## References
 
+## References
 
-[lobashev2025]: https://arxiv.org/abs/XXXX.XXXXX Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*.
-
-																				   
-[cassini-video]: https://www.youtube.com/watch?v=4c8eSr7x7AA "11 Years of Cassini Saturn Photos in 3 hrs 48 min" (n.d.).
+- Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*. [arXiv link](https://arxiv.org/abs/2506.10632)
+- "11 Years of Cassini Saturn Photos in 3h 48min" (n.d.). [YouTube video](https://www.youtube.com/watch?v=4c8eSr7x7AA)
