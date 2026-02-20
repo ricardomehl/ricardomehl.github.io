@@ -518,15 +518,15 @@ Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et a
      alt="Beschreibung" 
      class="image_medium">
 
-<img src="/images/Komprimiert/the rock to rock.png" 
+<img src="/images/Komprimiert/the rock to rock.jpg" 
      alt="Beschreibung" 
-     class="image_medium">
+     class="image_big">
 
 This echoed a conversation with a middle school art teacher friend, who introduced her class's _"Symbiosis"_ project: students chose two contrasting texture patches and glued them onto a sheet of paper, then hand-drew the space in between. A form of manual interpolation.
 
 <img src="/images/Komprimiert/kunstunterricht_symbiose.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 What sparked my interest was the idea of encoding these texture patches as latent vertices and then comparing the resulting interpolation grid with their human-drawn counterparts.
 
