@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "LatentWorld"
 collection: publications
 category: manuscripts
 permalink: /publication/LatentWorld_Documentation
