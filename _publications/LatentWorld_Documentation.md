@@ -53,7 +53,7 @@ $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
 <img src="/images/Komprimiert/2D_Gauss_4x.png" 
      alt="Beschreibung" 
-     class="small-image">
+     class="image_small">
 
 > [!NOTE]
 > Vergiss nicht KEYWORDS (4-6)
@@ -68,7 +68,7 @@ This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., 
 
 <img src="/images/Komprimiert/paper_hessian_geometry.jpg" 
      alt="Beschreibung" 
-     class="small-image">
+     class="image_small">
 
 
 ### Implications: Semantic Archipelagos
@@ -135,20 +135,25 @@ z2 = z2.permute(0, 3, 1, 2)
 
 <img src="/images/Komprimiert/seeds.png" 
      alt="Beschreibung" 
-     class="small-image">
+     class="image_small">
 
 
 From the three base latents, a triangle naturally forms in latent space:
 
 <img src="/images/Komprimiert/forming_a_triangle.png" 
      alt="Beschreibung" 
-     class="small-image">
+     class="image_small">
 
 Decoding these corner latents via the replicated pipeline ($$η$$=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/paper pipeline.png" alt="Beschreibung">
+<img src="/images/Komprimiert/paper pipeline.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/first_latents.png" alt="Beschreibung">
+<img src="/images/Komprimiert/first_latents.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
 
 Through linear combination $$z = (z_0 - z_1) + (z_0 - z_2)$$ the triangle transforms into a parallelogram:
 
@@ -157,12 +162,18 @@ Introducing scalars $$\alpha$$ and $$\beta$$ for the vectors $$(z_0 - z_1)$$ and
 $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/bayersic_combination.png" alt="Beschreibung">
+<img src="/images/Komprimiert/bayersic_combination.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 
 Decoding grid point $$z$$ immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/decoding_z.png" alt="Beschreibung">
+
+<img src="/images/Komprimiert/decoding_z.png" 
+     alt="Beschreibung" 
+     class="image_small">
+
 
 To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. To skip this explanation and get to the sampling, please proceed to chapter [sampling the grid].
 
@@ -172,32 +183,48 @@ Lobashev et al. (2025) note that diffusion models expect latents within a Gaussi
 
 To understand what this means, let's look at a 2D Gaussian distribution (the familiar bell curve). If we pick a specific probability value and ask, "Where else does this exact probability occur?", we get a **1D contour line** slicing through the peak. This is the set of all points sharing that probability density.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_Gauss_4x.png" alt="Beschreibung">
+
+<img src="/images/Komprimiert/2D_Gauss_4x.png" 
+     alt="Beschreibung" 
+     class="image_small">
+
 
 If we go up a dimension to a 3D Gaussian distribution. Now picking the same probability value, the answer forms a 2D circle.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/3D_gauss_4x.png" alt="Beschreibung">
+<img src="/images/Komprimiert/3D_gauss_4x.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Increasing the dimension to 4D starts to lose the ability to depict the distribution. But the constant probability value now traces a 3D sphere.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/4D_gauss_4x.png" alt="Beschreibung">
+<img src="/images/Komprimiert/4D_gauss_4x.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of $$4 \times 64 \times 64 = 16384$$.
 
 Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of $$16384-1$$ dimensions.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/dimension-1_title.png" alt="Beschreibung">
+<img src="/images/Komprimiert/dimension-1_title.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere ($$S^{d-1}$$).
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/hypersphere_stable_diffusion.png" alt="Beschreibung">
+<img src="/images/Komprimiert/hypersphere_stable_diffusion.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Thus latent vectors that are normalized to to this probability density value, can be decoded into plausible images.
 $$β$$
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/z_norm.png" alt="Beschreibung">
-
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/grid_functioning.png" alt="Beschreibung">
+<img src="/images/Komprimiert/z_norm.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
+<img src="/images/Komprimiert/grid_functioning.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 This raises a crucial question: If normalization to the Gaussian hypersphere was required for the calculated point $$z$$ to produce plausible images, why did the latents $$z_0, z_1, z_2$$ appear on it without any adjustment?
 
@@ -214,16 +241,26 @@ z0 = randn_tensor((1, latent_height, latent_width, latent_channels)
 
 A `randn_tensor()` usually has an even chance of being created at every point in a Gaussian $$\mathcal{N}(0,I)$$. According to Gaussian Annulus Theorem, high-dimensional Gaussians like Stable Diffusion's latent space defy 2D bell curve intuitions. While in **low dimensions**, probability mass clusters near the origin,
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/2D_centermass.png" alt="Beschreibung">
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/3D_centermass.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/2D_centermass.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
+<img src="/images/Komprimiert/3D_centermass.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
 in high dimensions ($$d\gg1$$), nearly all probability mass concentrates in a thin shell (or annulus) around the center at a radius of approximately $$\sqrt{d}$$ in $$d$$-dimensional space.
 
 As dimension $$d$$ increases, the annulus thins relative to the radius $$\sqrt{d}$$. This "soap bubble" effect ensures that the vast majority of sampled points in $$\mathcal{N}(0,I)$$ concentrate on the hyperspherical shell.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass.png" alt="Beschreibung">
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/high_dimensional_center_mass_2.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/high_dimensional_center_mass.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
+<img src="/images/Komprimiert/high_dimensional_center_mass_2.png" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
 If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 128$$ using the `tensor.norm()` function, calculating the magnitudes of the latents $$z_0, z_1, z_2$$ gives positions very close to the annulus.
 
 | Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
@@ -236,7 +273,9 @@ While point $$z$$, calculated through linear combination, drifts far outside: $$
 
 ### Sampling the Grid
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/take a guess.png" alt="Beschreibung">
+<img src="/images/Komprimiert/take a guess.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 By establishing a local `target_norm` from latents $$z0,z1,z2$$,
 
@@ -255,7 +294,9 @@ global_target_norm = torch.norm(example_noise).item() # ≈128
 
 point $z$ can be normalized and decoded into a plausible image. 
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/grid_functioning.png" alt="Beschreibung">
+<img src="/images/Komprimiert/grid_functioning.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 With normalization solved, the parallelogram becomes fully decodable. Lobashev et al. (2025) sampled **60,000 points** for exhaustive analysis; my home setup maxed out at **2,500**, still revealing fractal rifts clearly.
 
@@ -329,7 +370,9 @@ alphas = np.linspace(0.4, 0.6, sampling_steps) # alpha interval (rows/x)
 betas = np.linspace(0.4, 0.6, sampling_steps) # beta interval (colums/y)
 ```
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/Fractal_analysis.png" alt="Beschreibung">
+<img src="/images/Komprimiert/Fractal_analysis.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 ### Batching Pipeline Optimization
 
@@ -373,11 +416,15 @@ for batch_idx, (latent_batch_linked, metadata_batch) in enumerate(batch_list):
 
 The resulting images are exported to disk, with an accompanying `metadata.json` file that records global configuration, including grid resolution, prompts used, and the positional coordinates of each latent within the grid.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/folder and metadata.png" alt="Beschreibung">
+<img src="/images/Komprimiert/folder and metadata.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent grid with dual annotations: grid indices ($$x, y$$ intervals) and parameter coordinates ($$\alpha$$, $$\beta$$) for each point.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/plot_system.jpg" alt="Beschreibung">
+<img src="/images/Komprimiert/plot_system.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
 
 > [!NOTE]
 > Das könntest du nochmal samplen dass du auch das interval von 0 bis 1 hast
@@ -389,37 +436,57 @@ Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent
 
 Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly: a hybrid form blending both mountain and cat features, failing to resolve into either concept. This could be indicative of the phase transitions discussed in the paper.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/10x10 grid.png" alt="Beschreibung">
+<img src="/images/Komprimiert/10x10 grid.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/erste anomalie 3.png" alt="Beschreibung">
+<img src="/images/Komprimiert/erste anomalie 3.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp boundary separates stable cat ↔ mountain domains, with fractal instability concentrated at the transition's northern edge, where the anomaly was spotted.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/50x50 plot.png" alt="Beschreibung">
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/rift between 2.png" alt="Beschreibung">
+<img src="/images/Komprimiert/50x50 plot.png" 
+     alt="Beschreibung" 
+     class="image_small">
+
+<img src="/images/Komprimiert/rift between 2.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 ### CLIP Lipschitz Analysis
 
 Lobashev et al. (2025) rigorously quantify this geometry. To detect the distinct phases, they trained a neural network on the log-partition function to reconstruct the Fisher information metric of the space, which had discontinuities along the borders between concepts. Through this approach, they calculated geodesic paths between semantic domains, achieving smooth interpolations. To quantify model instability at transitions, they used the Lipschitz constant—a measure tracking the rate of change of a function. At phase boundaries, this constant diverges, suggesting extreme fluctuations in model output resulting from only small changes to the input latent vector, even at scales of $$10^{-8}$$ (the model's resolution at half-precision bit level).
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/lipschitz_stable.png" alt="Beschreibung">
+<img src="/images/Komprimiert/lipschitz_stable.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Each grid image is fed through CLIP's image encoder to extract image features yielding high-dimensional semantic fingerprints describing the content of the image.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/clip_fingerprint_2.png" alt="Beschreibung">
+<img src="/images/Komprimiert/clip_fingerprint_2.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/clip_fingerprint.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/clip_fingerprint.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 These fingerprints are formed into a feature map that preserves the original ($$\alpha, \beta$$) coordinates. This feature map is analyzed for local gradient magnitudes across horizontal and vertical axes, then used to compute the Lipschitz constant, which measures output sensitivity between grid neighbors.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/Lipschitz_at_Fractal.png" alt="Beschreibung">
+<img src="/images/Komprimiert/Lipschitz_at_Fractal.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 Each cell's Lipschitz amplitude is averaged across neighbors, yielding a stability field overlaid on the original grid. Rift regions show explosively high values, confirming extreme sensitivity where concepts collide.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/amplitude_grid_plot.png" alt="Beschreibung">
+<img src="/images/Komprimiert/amplitude_grid_plot.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/lipschitz_grid_50x50.png" alt="Beschreibung">
+<img src="/images/Komprimiert/lipschitz_grid_50x50.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 The Lipschitz field reveals phase divergence in clear detail. A sharp border cleanly separates mountain and cat manifolds, peaking at the fractal rift where model coherence collapses.
 
@@ -433,23 +500,27 @@ The bit-level Lipschitz divergence is reproducible and confirms Lobashev et al. 
 
 Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et al. (2025), in _Probability Density Geodesics in Image Diffusion Latent Space_, tackle similar latent geometry challenges, developing methods to encode existing images and trace interpolations between them. I was particularly amused by their example of interpolating between actor Dwayne "The Rock" Johnson and a literal rock.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/paper_density_geodesics.jpg" alt="Beschreibung">
+<img src="/images/Komprimiert/paper_density_geodesics.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/the rock to rock.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/the rock to rock.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 This echoed a conversation with a middle school art teacher friend, who introduced her class's _"Symbiosis"_ project: students chose two contrasting texture patches and glued them onto a sheet of paper, then hand-drew the space in between. A form of manual interpolation.
 
-[[Kunstunterricht_Ideen_Symbiose.pdf]]
-
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/symbiose (8).jpeg" alt="Beschreibung">
-
+<img src="/images/Komprimiert/kunstunterricht_symbiose.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
 
 What sparked my interest was the idea of encoding these texture patches as latent vertices and then comparing the resulting interpolation grid with their human-drawn counterparts.
 
 Initial experiments hit a hard limit. It seemed that either my encoding or decoding approach was flawed, resulting in malformed image diffusion. Even importing the original _"cat/mountain"_ images from previous experiments proved troubling. This wall seemed intractable for now, so I decided to revisit it later with the necessary knowledge and focus first on a different approach.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/grid_plot_20260210_023309.png" alt="Beschreibung">
+<img src="/images/Komprimiert/grid_plot_20260210_023309.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 ### Exploring Concepts beyond neutral prompts
 
@@ -457,7 +528,9 @@ Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** wit
 
 Here is an exploration of textures and ornaments:
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/grid_10x10_ornaments.png" alt="Beschreibung">
+<img src="/images/Komprimiert/grid_10x10_ornaments.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 What sparked my interest the most was the metaphor of discovering the latent space being similar to discovering the universe like a satellite.
 
@@ -471,8 +544,9 @@ A notable video is the uncut stream of all 341,805 images of the Cassini's Satur
 
 With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $\alpha, \beta$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $|\mathbf{z}| \gg 128$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
 
-<img src="{{ricardomehl.github.io}}/images/Komprimiert/out_of_latent_space.png" alt="Beschreibung">
-
+<img src="/images/Komprimiert/out_of_latent_space.png" 
+     alt="Beschreibung" 
+     class="image_small">
 
 ## References
 
