@@ -13,151 +13,58 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
-The contents above will be part of a list of publications, if the user clicks the link for the publication than the contents of section will be rendered as a full page, allowing you to provide more information about the paper for the reader. When publications are displayed as a single page, the contents of the above "citation" field will automatically be included below this section in a smaller font.
+LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images
 
----
-tags:
-  - AI
-  - Research
-  - MA
-  - TH_OHM
-  - computer_science
----
+Ricardo Mehl
 
-<div style="text-align: center;">
-  
-  <h1>Latent World</h1>
-  
-  Ricardo Mehl 
-  Design for Digital Futures
-  
-</div>
+MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm
 
+mehlri77989@th-nuernberg.de
 
+> [!NOTE]
+> Du kannst hier eine simplifizierte version deines Codes auf Github anbieten
 
+> [!NOTE]
+> Vergiss nicht KEYWORDS (4-6)
 
-> [!Moritz Anweisung]
-> ### Project documentation
-> 
-> Alongside the presentation, you are asked to submit a short written documentation of your project:
-> 
-> **Hand in date: 20.02.2026 via E-Mail**
-> **DIN A4 format, 5–10 pages, PDF**
+### Introduction/Related Work: The Landscape of Latent Spaces
 
-**10 pages** are around **3000 words**
+The latent space in generative models like Stable Diffusion is a compressed, abstract representation of high-dimensional image data encoded in tandem with semantic concepts from training into a lower-dimensional space. This space can be described as a navigable map: similar images or ideas cluster nearby, enabling the decoder to reconstruct visuals from targeted points, which users typically steer toward using text prompts.
 
----
+This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). _Hessian Geometry of Latent Space in Generative Models_, which conceptualizes latent space exploration as navigating a country. Their exploration was deliberately neutral, employing minimal guidance to unveil the latent space's inherent geometry without targeted semantic steering. Using Stable Diffusion 1.5 with generic prompts such as "High quality picture, 4k, detailed" and negative prompts such as "blurry, ugly, stock photo," the authors let the model's training biases surface organically. By scattering a two-dimensional grid of latents, they analyzed the space's geometry, uncovering phase transitions between semantic concepts such as "cat" and "mountain." These transitions manifest as rifts where the diffusion model becomes unstable, generating fractal patterns of either concept that extend to the model's bit-level resolution. Notably, interpolations within certain rifts introduce emergent third concepts, such as "car," highlighting the latent space's intricate, non-linear structure.
 
+#### Implications: Semantic Archipelagos
 
-**Dieses Paper ist eine gute Vorlage:** 
-	https://shreyansh26.github.io/post/2023-03-26_flash-attention/
+The implications suggest that no clear semantic bridge exists between concepts like "cat" and "mountain." My hypothesis is that because human categories are, by definition, an imperfect map cast over a territory, a partial overlay of which an indissoluble residue lingers beyond language or imagination, what psychoanalyst Jacques Lacan would describe as *"the Real"*. The unrepresentable excess that neural networks, trained on our vast conceptual datasets, cannot help but retrace in their own fractured geometry. If such a space is described in terms of geography, it emerges as an archipelago of semi-disconnected islands of varying sizes.
 
-![[featured.png]]
+#### Artistic Motivation: Embracing Model Failure
 
----
+While Lobashev et al. (2025) aimed to map coherent paths through these phase transitions for sensible image interpolation, my interest veered toward the rifts themselves: deliberate expeditions into semantic fractures to unearth new, unusual images. To me, generative AI's most captivating outputs emerge when it essentially "fails" at what it does—producing glitches and anomalies that, like an artist's brushstroke, alter what they depict but reveal something deeper about the medium and its process. These "neural blobs" or hallucinations parallel "light leaks" or "grain" in photography: flaws that transform into stylistic qualities, artifacts of process that artists actively seek out.
 
-**Diese Struktur wäre ganz gut so:**
-### Overview
-### Background
-### Experiments
+### Methods: Replicating Latent Cartography
 
----
+#### Replicating Lobashev et al.'s Experimental Protocol
 
-Du könntest auch so ein Poster kreieren und für den Raum ausdrucken.
+To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to $η = 0$ (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
 
-![[du könntest ein poster kreieren.png|400]]
+#### GPU-Optimized Experimental Infrastructure
 
----
-### Gedanken über das Paper
+The pipeline was developed in JupyterLab within a Conda environment running PyTorch on CUDA, enabling parallel image generation across GPU cores.
 
-Schreibe es wie ein Medium Artikel. Ich denke das ist die richtige Höhe.
+The hardware used was an **RTX 4090 GPU** with a **Ryzen 7950X CPU** and **128 GB** of **DDR5 memory**.
 
+For **512x512px** images, the model requires a base memory of **4-6 GB**, working in float16 half-precision—a standard often used for efficient AI and machine learning inference—with peak memory usage around **6-8 GB** during image generation. Mid-range systems suffice here, though higher resolutions spike memory demands, pushing inference from faster VRAM to a slower CPU/DRAM combination.
 
+#### Grid Spanning in Latent Space
 
----
+Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents $z_0$, $z_1$, $z_2$ form the corners, from which a fourth point $z$ is calculated via vector addition: $z = (z_0 - z_1) + (z_0 - z_2)$. I then sampled the grid points by iterating through vector scalars $α$ and $β$ to obtain different position values for $z$.
 
+I started by generating three random latents. A latent is a compressed numerical representation of an image in latent space. It is **1/8** of the output image size, meaning a **64x64** latent results in a **512x512px** image. We decode this latent through a diffusion pipeline.
 
-> Ludwig Boltzmann, who spent much of his life studying statistical mechanics, died in 1906, by his own hand. Paul Ehrenfest, carrying on the work, died similarly in 1933. Now it is our turn to study statistical mechanics. 
-> 
-> ― David L. Goodstein, [States of Matter](https://www.goodreads.com/work/quotes/44809168)
-
-
-## Hessian Paper Overview
-
-This project is an extrusion of the paper [[Hessian Geometry of Latent Space in Generative Models.pdf]] which proposes a way to explore the Latent Space like you would explore a country. By scattering a two-dimensional Grid of [[Latent|Latents]] the authors analyzed the geometry of the space, revealing phase-transitions between semantic concepts like "cat" or "mountain", that revealed rifts in the geometry where the [[Diffusion|Diffusion Model]] (Stable Diffusion 1.5) got unstable generating either cat or mountain in a fractal pattern, which reached all the way down to the bit-level resolution of the Model. In other parts of the rift there was a third concept appearing during the interpolation of the two concepts. Suddenly a car was appearing.
-
-They achieved this with minimal guidance, using [[Stable Diffusion|Stable Diffusion 1.5]] with prompts: “High quality picture, 4k, detailed” and negative prompts: “blurry, ugly, stock photo” revealing the pure geometry of the space in an unaltered state. The images that occurred (cat, mountain) were an expression of the inherent bias of the models training data.
-
-> the method reveals a fractal structure of phase transitions in the latent space, characterized by abrupt changes in the Fisher metric. 
-> 
-> [[Hessian Geometry of Latent Space in Generative Models]]
-
-![[hessian_paper_phase_transition.png]]
-
-## Implications (rift between concepts)
-
-The implications of that paper are of course that there is no clear semantic bridge between concepts like "cat" or "mountain" in our world of images and language with which we categorize the world.
-
-Because the semantic landscape of human-constructed words and images is by its definition an imperfect map cast over the territory which psychoanalyst Jacques Lacan would describe as [[Das „Reale“ (Lacan)|the Real]], the indissoluble rest, which cannot be expressed in language or imagination.
-
-It is therefore logical that a Neural Network sampling from a big dataset of our real word concepts and categorizing them on features and semantic distance would inevitably sketch out a similar map again.
-
-
-![[semantic_landscape.png|300]]
-
-If we would depict this space in geography terms, it would be an archipelago of semi-disconnected islands of varying sizes.
-
-## My Interest for Project
-
-While the goal of the authors why they try to depict this geometry was to find coherent paths through these phase transitions so to guide interpolation between images sensibly.
-
-What peaked my interest in this was taking an effort to explore these semantic rifts that they describe in an effort to find new and unusual images.
-
-It seems at least to me so, that the most interesting output of generative AI models happens when they essentially "fail" at what they do. When there are weird glitches or anomalies that make the output interesting in the same way an artists brushstroke is essentially an alteration of the thing they try to depict, but in this alteration, they reveal something about the medium and the process used to create this depiction. "Neural blobs" or "hallucinations" of a generative model are depictions of the medium akin to "light leaks" or "grain" are for photography, which are flaws that became stylistic elements that artists seek out.
-
-![[neural poster keingarten.jpg|300]]
-
-
-## Replicating the Paper Setup
-
-So I started to replicate the setup in the paper, to see if these fractals can be replicated. 
-
-#### Paper Setup
-
-The authors used **StableDiffusion 1.5** for their setup with Lykons **Dreamshaper 8** checkpoint loaded. The **positive prompts** applied are “High quality picture, 4k, detailed” with **negative prompts** being “blurry, ugly, stock photo.” The **DDIM parameter** is set to **η = 0**, so no additional noise is added in the generation, which makes the pipeline deterministic and its output reproducible. I additionally used a fixed seed for the generator in the pipeline for every image generated. They used a [[Classifier-free guidance (CFG)]] scale of 5 with 50 inference steps.
-
-
-> [!Perplexity]
-> #### Conda-Environment vs. Kernel
-> 
-> - **Conda-Environment**: Isolierte Python-Umgebung mit Paketen (PyTorch CUDA, etc.) – dein "gpu"-Env mit RTX 4090-Support.
->     
-> - **Kernel**: Registrierter Einstiegspunkt (via `ipykernel install --name=gpu`), der **auf** dem Environment basiert. Zeigt als "Python [conda env:gpu]" in der Kernel-Liste.
-
-#### Setup in Jupyter Lab / My PC
-
-The setup was created in Jupyter Lab.
-
-I created a **Conda-Environment** which runs PyTorch on CUDA giving me the option to run multiple image generation processes in parallel on my GPU.
-
-
-The specifications of the PC used was a **RTX 4090**, a **Ryzen 7950x Processor** with **128GB** of **DDR5 Memory**. The setup can be replicated on different setups. 
-
-For creating **512x512px** images, the model needs a base amount of around **4-6 GB** and works with **float16** half-precision floating-points, a format common in other AI and machine learning tasks for its increased efficiency for model training and inference. With the peak of the memory-usage being around **6-8 GB** during image generation. While this is pretty manageable even on mid-range home systems, with higher image resolution the memory use will shoot up considerably so that the pipeline size might only be manageable on DRAM instead of GPU Memory, having to rely on the CPU for inference which slows the generation down considerably. At the end it is a compromise between speed and quality.
-
-### Spanning the Grid in Latent Space
-
-To analyze the [[Latent space]] the authors span a grid in which they sampled 60.000 images. They created 3 random Latents in the space ($z0, z1, z2$) from which they created a grid by calculating the fourth point $z$ through vector addition of $(z0, z1)$ and $(z1, z2$). Then they sampled the grid-points by iteration through vector scalars $α$ and $ß$ to get different position values for $z$.
-
-
-I proceeded by generating 3 random Latents. A Latent is a compressed numerical representation of an Image in the [[Latent space]]. It is **1/8** output image, which means a **64x64** [[Latent]] results in a **512x512px** image. We can decode this [[Latent]] through a [[Diffusion]] Pipeline.
-
-I start by creating 3 random number generators with fixed seeds for repeatability. The 3 [[Latent|Latents]] created from these have the shape `[1, 64, 64, 4]` which represents a batchsize of 1, the resolution, as well as 4 [[Variational Autoencoder (VAE)|VAE]] feature maps containing the [[Gaussian distribution|gaussian]] [[Noise]] which the [[Diffusion]] Pipeline decodes.
-
-This structure gets permuted into `[1, 4, 64, 64]` which is the Latent-Shape a [[Stable Diffusion]] Pipeline expects.
+Three random number generators are created with fixed seeds for repeatability. The latents created from these have the shape `[1, 64, 64, 4]`, which represents a batch size of 1, the resolution, and 4 VAE channels encoding Gaussian noise that the diffusion pipeline decodes. The generated latent shapes are permuted into `[1, 4, 64, 64]`, which a Stable Diffusion pipeline expects.
 
 ```
-# Core Paramters
+# Latent Paramters
 latent_height, latent_width = 64, 64
 latent_channels = 4
 
@@ -190,89 +97,68 @@ z2 = z2.permute(0, 3, 1, 2)
 
 ![[seeds.png|400]]
 
-
-Out of the prepared Latents we can form a triangle. 
+From the three base latents, a triangle naturally forms in latent space:
 
 ![[forming_a_triangle.png|350]]
 
-And we can already decode the Latents in the Pipeline based on the parameters the authors mentioned in the paper, which interestingly enough gives us pictures of cats and mountains similar to the paper, even though we have not specified the same point locations as in the paper.
+Decoding these corner latents via the replicated pipeline (η=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
+
+![[paper pipeline.png|300]]
 
 ![[first_latents.png|350]]
 
-Through a linear combination of $(z0, z1) + (z0, z2)$ we can transform the triangle into a parallelogra. And by introducing the [[scalar|scalars]] $α$ and $ß$ for the vectors $(z0, z1)$ and $(z1, z2)$ respectively we gain the ability to parameterize the space to find any point $z$ on the parallelogram through a [[Baryzentrische Kombination|bayrcentric combination]] of its vertices. 
 
-> [!WICHTIG]
-> Erwähne hier mal die linearkombination genau!!
+Through linear combination $z = (z_0 - z_1) + (z_0 - z_2$) the triangle transforms into a parallelogram:
+
+Introducing scalars $α$ and $β$ for the vectors ($z_0 - z_1$) and ($z_0 - z_2$) respectively, enables to parameterize the space to find any point $z$ through barycentric combinations of vertices ($α, β ∈ [0,1]$). 
+
+$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$
 
 ![[bayersic_combination.png|500]]
 
-When decoding point $z$ we stumble on the first hurdle. The reason the image looks this way is because the Latent has to be normalized to the right probability range to be decoded into a plausible image.
+Decoding grid point $z$ immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
 
 ![[decoding_z.png|500]]
 
-To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. 
+To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. To skip this explanation and get to the sampling, please proceed to chapter [sampling the grid].
 
-To skip the explanation and get to the next step please go to [Chapter].
+#### Understanding Gaussian Hypersphere Normalization
 
-## Understanding the Gaussian Hypersphere
+Lobashev et al. (2025) note that diffusion models expect latents within a Gaussian probability space. Let's build this intuition dimension by dimension.
 
-> [!Perplexity]
-> **Nein, das trainierte Manifold ist keine einfache "Wahrscheinlichkeitsrange", sondern eine hochdimensionale, gekrümmte Struktur** im Gauß-Raum, auf der die echten (denoisierbaren) Datenverteilungen liegen.
-> 
-> - **Gauß-Raum**: `torch.randn()` füllt **alles** gleichmäßig.
->   
-> - **Manifold**: Nur Punkte nahe der echten Datenverteilung sind sinnvoll – dein 0.5z1+0.5z20.5z1+0.5z2 liegt **außerhalb**
->   
-> - **Datenmanifold** ℳ ⊂ 𝕉  # 99% "leerer" Raum + dünne "Schicht" mit Bildinfo
->   
->   
-
-```
-	    Gauß-Raum (16kD)
-       ╭───────────────╮
-       │     leeres    │
-       │    Volumen    │  ← 99.999% deines z
-  z₁───┤  ℳ (Manifold)├───z₂
-       │               │
-       ╰───────────────╯
-```
-
-
-The authors mention this problem in their paper.
-
-That diffusion models like [[Stable Diffusion]] like to work in a certain probability range in a Gaussian probability space.
-
-To understand what this means lets look at a two dimensional Gaussian distribution. This is the normal distribution or bell curve as we know it. When we mark a certain value on it and ask the question where on the distribution this exact value also occurs, we get a slice through it. If you think about how many dimensions this value has, the answer would be only one dimension.
+To understand what this means, let's look at a 2D Gaussian distribution (the familiar bell curve). If we pick a specific probability value and ask, "Where else does this exact probability occur?", we get a **1D contour line** slicing through the peak. This is the set of all points sharing that probability density.
 
 ![[2D_Gauss_4x.png|300]]
 
-If we go one dimension up, we have a three dimensional Gaussian distribution. If we again pick a value and ask for every point where the value is identical. We get a two dimensional value range.
+If we go up a dimension to a 3D Gaussian distribution. Now picking the same probability value, the answer forms a 2D circle.
 
 ![[3D_gauss_4x.png|300]]
-Increasing the dimension to 4D we start to lose the ability to depict the distribution. But the value range has now become a sphere.
+
+Increasing the dimension to 4D starts to lose the ability to depict the distribution. But the constant probability value now traces a 3D sphere.
 
 ![[4D_gauss_4x.png|300]]
 
-Now what if we go even higher? Because [[Stable Diffusion]] doesn't just have 4 dimensions. If we account for the number of feature maps `4` and the resolution of the latent in height and width `64x64` we get a dimension of: $4*64*64 = 16384$ 
+Now what if we go even higher? Because Stable Diffusion doesn't just operate in 4 dimensions. Accounting for the number of feature maps `4` and the latent resolution of `64x64`, we get a dimensionality of $4 \times 64 \times 64 = 16384$.
 
-If we extend the pattern of the previous examples, the value range was always one dimension lower than its Gaussian distribution. So the value range has a dimension of $16384-1$.
+Extending the intuition from the previous examples, a constant probability value always exists one dimension lower than its Gaussian distribution. Thus, it resides in a space of $16384-1$ dimensions.
 
 ![[dimension-1_title.png]]
 
-If we want to depict this value range, we can again depict it as a sphere, for the simple reason that, if the value is a vector from a center point 0 and it has the same distance in every direction, it can only be a sphere, even in a space with over 16 thousand dimensions where the value range would be an incomprehensible manifold. The term for this structure is a Gaussian Hypersphere or n-sphere.
+This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere ($S^{d-1}$).
+
 
 ![[hypersphere_stable_diffusion.png|300]]
 
-If we now normalize our Latent vector so that it falls on this value range, we can decode it to an image.
+Thus latent vectors that are normalized to to this probability density value, can be decoded into plausible images.
 
 
 ![[z_norm.png|400]]
 
-
 ![[grid_functioning.png|400]]
 
+This raises a crucial question: If normalization to the Gaussian hypersphere was required for the calculated point $z$ to produce plausible images, why did the latents $z_0, z_1, z_2$ appear on it without any adjustment?
 
-Here arises another question. If it needed normalization for this Latent to the Gaussian Hypersphere for it to reveal a plausible image, why were the first 3 Latents on it in the first place?
+This is the latent that is constructed:
 
 ```
 gen0 = torch.Generator(device=device).manual_seed(0)
@@ -283,35 +169,58 @@ z0 = randn_tensor((1, latent_height, latent_width, latent_channels)
                   dtype=torch.float16)
 ```
 
-This is the Latent that is constructed. A `randn_tensor()` usually has an even chance to be created at every point in a Gaussian probability space $𝒩(0,I)$.
+A `randn_tensor()` usually has an even chance of being created at every point in a Gaussian $\mathcal{N}(0,I)$. According to Gaussian Annulus Theorem, high-dimensional Gaussians like Stable Diffusion's latent space defy 2D bell curve intuitions. While in **low dimensions**, probability mass clusters near the origin,
 
-According to [[Gaussian Annulus Theorem]] a high-dimensional space like the [[Latent space]] of [[Stable Diffusion]], a spherical Gaussian distribution does not behave like a low-dimensional space like a 2D bell-curve.
+![[2D_centermass.png|300]]
+![[3D_centermass.png|300]]
 
-While the probability mass in low-dimensional Gaussian distributions is located in the center. On higher dimensions, almost all of the probability mass is concentrated in a thin shell (or annulus) around the center at a radius approximately $\sqrt d$ from the center.
+in high dimensions ($d\gg1$), nearly all probability mass concentrates in a thin shell (or annulus) around the center at a radius of approximately $\sqrt{d}$ in $d$-dimensional space.
 
-As the dimension grows the shell becomes thinner compared to the radius. This "soap bubble" phenomenon describes that even if a Gaussian distribution is located at the center, the vast majority of points sampled will lie on the sphere of radius $\sqrt d$.
+As dimension $d$ increases, the annulus thins relative to the radius $\sqrt{d}$. This "soap bubble" effect ensures that the vast majority of sampled points in $\mathcal{N}(0,I)$ concentrate on the hyperspherical shell.
 
-That means a `randn_tensor()` created has a very high chance to be located on this annulus. If we take the root of the dimension of the [[Stable Diffusion]] [[Latent space]] we get the radius of that annulus: $$\sqrt 16384 = 128$$
-Using the `tensor.norm()` function, we can calculate the magnitude for our random Latents $z0,z1,z2$ in the [[Latent space]], which gives us values very close to the theoretical prediction of the Gaussian annulus.
+![[high_dimensional_center_mass.png|300]]
 
-$z1 = 128.1250$
-$z2 = 127.1250$
-$z3 = 127.3125$
+![[high_dimensional_center_mass_2.png|400]]
 
-While if we look at the magnitude of point $z$ calculated through linear combination we get a value of $z = 219.8750$, very much outside the annulus where [[Stable Diffusion]] can generate plausible images.
+If applied to the latent space of Stable Diffusion, $\sqrt{d} = \sqrt{16384} = 128$ using the `tensor.norm()` function, calculating the magnitudes of the latents $z_0, z_1, z_2$ gives positions very close to the annulus.
 
-If we now normalize this value, which means projecting the Latent vector back to the Gaussian annulus, or Gaussian hypersphere as discussed earlier, we [[Stable Diffusion]] can decode it into a plausible image.
+| Latent | ∥z∥      | Distance from $\sqrt{d} = 128$ |
+| ------ | -------- | ------------------------------ |
+| $z0$   | 128.1250 | +0.1250                        |
+| $z1$   | 127.1250 | -0.8750                        |
+| $z2$   | 127.3125 | -0.6875                        |
 
-## Sampling the Grid (skipping gaussian hypersphere)
+While point $z$, calculated through linear combination, drifts far outside: $\Vert\mathbf{z}\Vert = 219.8750 \gg \sqrt{d}$. If normalized to $\sqrt{d} = 128$, latent $z$ will return a plausible image.
 
-> [!NOTE]
-> Hier musst du noch reinschreiben wie man punkt z normalisiert falls leute das hypersphere ding skippen
+#### Sampling the Grid
 
-Now with the point $z$ normalized a grid is created which can now be analyzed by scattering points on it. While the authors of the hessian geometry paper used 60.000 to analyze the space, my maximum at home was 2.500 which gave me interesting results.
+![[take a guess.png|400]]
+
+By establishing a local `target_norm` from latents $z0,z1,z2$,
+
+```
+# Local normalization target
+local_target_norm = (z0.norm() + z1.norm() + z2.norm()) / 3
+```
+
+or calculating it from a separate latent, with `torch.randn(1, 4, 64, 64)` yielding a normalization target around 128, 
+
+```
+# Global normalization target
+example_noise = torch.randn(1, 4, 64, 64).to(device)
+global_target_norm = torch.norm(example_noise).item() # ≈128
+```
+
+point $z$ can be normalized and decoded into a plausible image. 
 
 ![[grid_functioning.png|400]]
 
-Through the [[Baryzentrische Kombination|bayrcentric combination]] any point $z$ on the grid can be calculated and decoded into an image. By moving gridwise in a nested loop over the plane any resolution of point grid can be sampled.
+With normalization solved, the parallelogram becomes fully decodable. Lobashev et al. (2025) sampled **60,000 points** for exhaustive analysis; my home setup maxed out at **2,500**, still revealing fractal rifts clearly.
+
+Barycentric combinations generate any grid point $z$:
+$$z(\alpha,\beta) = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
+
+Nested loops iterate $α, β ∈ [0,1]$ gridwise at the desired resolution (e.g., $5\times5 = 25$ latents).
 
 ```
 # Grid parameters
@@ -344,7 +253,7 @@ for idx_a, a in enumerate(alphas):
         })
 ```
 
-After creating a grid of `5x5` latents, we can decode them in the pipeline with the settings of the hessian geometry paper.
+Decoding each according to parameters set by Lobashev et al. (2025) to **512×512px** images via the pipeline:
 
 ```
 # Pipeline configuration
@@ -370,11 +279,9 @@ for batch_idx, (latent_batch_linked, metadata_batch) in enumerate(batch_list):
 > [!NOTE]
 > Das musst du nochmal etwas aufräumen! am besten ein neues Jupyter Lab erzeugen!
 
-![[Fractal_analysis.png|400]]
+The result is for this example a 5x5 grid of images that can be sampled at a smaller area of interest for deeper analysis, by changing start and end points of the intervals for $α$ and $ß$. 
 
-The result is for this example a 5x5 grid of images that can be sampled at a smaller level for deeper analysis. By changing the start and end of the intervals for $α$ and $ß$ we can sample a smaller space inside the grid. 
-
-Example adapted for sampling a 5x5 grid in the center:
+Example adapted for sampling a 5x5 grid in the center for $α, β ∈ [0.4,0.6]$:
 
 ```
 sampling_steps = 5
@@ -382,52 +289,28 @@ alphas = np.linspace(0.4, 0.6, sampling_steps) # alpha interval (rows/x)
 betas = np.linspace(0.4, 0.6, sampling_steps) # beta interval (colums/y)
 ```
 
+![[Fractal_analysis.png|400]]
 
-## Batching and Optimization
+#### Batching Pipeline Optimization
 
-### Batching
-
-To more efficiently analyse the space I started looking into batching to utilize the GPU to decode multiple latents in parallel. Internally the pipeline then denoises all latents in the current batch in parallel in one U-Net run per step. For a GPU with 24 GB VRAM a batchsize of 8-12 is a good sweetspot. This method decreased the reverse diffusion process per image from 2 seconds per image to around 0.3 seconds for the current setup.
+To accelerate grid exploration, I implemented GPU batching, processing multiple latents in parallel through single U-Net forward passes per denoising step. On 24GB VRAM (RTX 4090), a batch size of 8-12 hits the sweet spot, reducing per-image reverse diffusion from 2s to 0.3s (6.7× speedup).
 
 ![[batching_1.png|300]]
 
-
-By concatenating the latents along their first dimension reserved for batches `[1, 4, 64, 64]` for batches of 8 latents, the structure `[8, 4, 64, 64]` is formed. These batches get appended with the metadata of their latents to a list. 
-
-```
-batch_size = 8
-
-batch_list = [] # Tuple of latents + metadata
-
-
-for batch_idx in range(0, len(latent_list), batch_size):
-    
-    latent_batch = latent_list[batch_idx : batch_idx + batch_size]
-    metadata_batch = metadata_list[batch_idx : batch_idx + batch_size]
-    
-    latent_batch_linked = torch.cat(latent_batch, dim=0) # concatenate latents 
-
-    batch_list.append((latent_batch_linked, metadata_batch)) # Auf Liste schreiben
-
-```
-
-For this `batch_list` a tuple is created with the following structure:
+Latents reshape from single `[1, 4, 64, 64]` to batches (e.g., for batch size 8) `[8, 4, 64, 64]` via concatenation along the batch dimension, with metadata ($α, β$ coordinates) tracked for reconstruction. Processed batches are stored as `(latent_tensor, metadata)` tuples and passed to the pipeline.
 
 ```
 batch_list = [
->     (tensor_batch_1,  metadata_batch_1),  # Batch 1
->     (tensor_batch_2,  metadata_batch_2),  # Batch 2  
->     (tensor_batch_3,  metadata_batch_3),  # Batch 3
->     ...
-> ]
+    (tensor_batch_1, metadata_batch_1),  # [8, 4, 64, 64], ["α=0.0 β=0.0", ...]
+    (tensor_batch_2, metadata_batch_2),  # Batch 2
+    ...
+]
 ```
 
-Index 0 contains the batch tensor with the structure `[8, 4, 64, 64]` and index 1 is a list of 8 metadata-strings. The Pipeline then takes both elements per run. 
-
-To avoid token mismatch between the latents and the text-prompts for [[U-Net]] cross-attention, the token amount of the text-embeddings need to match the tokens of the batch. For a single latent has $1*64 * 64*= 4096$ tokens matching the text-embeddings $4096$ tokens. A batch of 8 latents has $8*64*64=36864$, the text-embedding tokens have to match that. For a dynamic pipeline we increase the `num_images_per_prompt` to the `batch_size` of the latent tensor.
+To avoid token mismatch between the latents and the text prompts for U-Net cross-attention, the number of text-embedding tokens must match the tokens in the batch. While single latents have $4,096$ tokens ($1\times64\times64$) matching text embeddings, batches (e.g., 8) scale to $32,768$ tokens ($8\times64\times64$). For a dynamic pipeline ensuring token parity for parallel denoising, I set `num_images_per_prompt` to match the `batch_size` of the latent tensor.
 
 ```
-# Pipeline configuration
+# Pipeline parameters (paper configuration)
 pos_prompt = "High quality picture, 4k, detailed"
 neg_prompt = "blurry, ugly, stock photo"
 inference_steps = 50
@@ -448,13 +331,11 @@ for batch_idx, (latent_batch_linked, metadata_batch) in enumerate(batch_list):
     )
 ```
 
-The resulting images get exported to drive and a metadata.json file keeps track of global data like grid resolution, prompts used and positional data for latents in the grid.
+The resulting images are exported to disk, with an accompanying `metadata.json` file that records global configuration, including grid resolution, prompts used, and the positional coordinates of each latent within the grid.
 
 ![[folder and metadata.png|400]]
 
-### Visualization
-
-This data can be visualized in a Matplotlib plot, with additional labels keeping track of positional data measured both in the grid interval in x and y direction and the values of $α$ and $ß$ for that point.
+Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent grid with dual annotations: grid indices ($x, y$ intervals) and parameter coordinates ($\alpha$, $\beta$) for each point.
 
 ![[plot_system.jpg|400]]
 
@@ -462,202 +343,103 @@ This data can be visualized in a Matplotlib plot, with additional labels keeping
 > Das könntest du nochmal samplen dass du auch das interval von 0 bis 1 hast
 
 
-## Exploration and Lipschitz Constant
+### Results: Mapping Semantic Fractures
 
-By increasing the grid resolution, more details get revealed. At a resolution of 10x10 images the first anomaly is discovered. In my interpretation the model has failed here to generate a plausible image. It seems like an image that shares features of both mountains and cats without being either. This could be the fractal rift indicative of a phase transition the paper was describing.
+#### Initial Rift discovery
+
+Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly: a hybrid form blending both mountain and cat features, failing to resolve into either concept. This could be indicative of the phase transitions discussed in the paper.
 
 ![[10x10 grid.png|400]]
 
 ![[erste anomalie 3.png|400]]
 
-Increasing the resolution to 50x50 images reveals the structure even more. We see a clear border between two concepts. Not only that but a clear rift is arising at the top of the grid where the anomaly was spotted which revealed images where the model clearly struggled to form a coherent concept.
+At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp boundary separates stable cat ↔ mountain domains, with fractal instability concentrated at the transition's northern edge, where the anomaly was spotted.
 
-The authors used different methods to analyse the grid geometry. 
+![[50x50 plot.png|400]]
 
-To detect the distinct phases and their transitions they trained a neural network on the log-partition function to reconstruct the fisher information metric of the space, which had discontinuities along the borders between concepts. Through this pathway they were able to calculate geodesic paths through these phases to achieve a smooth interpolation.
+![[rift between 2.png|400]]
 
-To quantify the instability of the model at these transitions they also used the [[Lipschitz-Konstante|Lipschitz constant]], which is a value that tracks the rate of change of a function. At the phase boundaries this constant diverges. Which means even small changes in the latent vector (to a scale of $10^{-8}$ which is at the bit-level of half-precision floating points for the model) are enough to result in extreme fluctuations of the image output between concepts.
+#### CLIP Lipschitz Analysis
+
+Lobashev et al. (2025) rigorously quantify this geometry. To detect the distinct phases, they trained a neural network on the log-partition function to reconstruct the Fisher information metric of the space, which had discontinuities along the borders between concepts. Through this approach, they calculated geodesic paths between semantic domains, achieving smooth interpolations. To quantify model instability at transitions, they used the Lipschitz constant—a measure tracking the rate of change of a function. At phase boundaries, this constant diverges, suggesting extreme fluctuations in model output resulting from only small changes to the input latent vector, even at scales of $10^{-8}$ (the model's resolution at half-precision bit level).
 
 ![[Lipschitz_Visualisierung.gif|300]]
 
 ![[lipschitz_stable.png|200]]
 
 
-To measure this constant across a grid, its image output is fed into a CLIP model to extract their image features and give every image its CLIP-Embedding, a sort of semantic fingerprint describing the content of the image.
+Each grid image is fed through CLIP's image encoder to extract image features yielding high-dimensional semantic fingerprints describing the content of the image.
 
 ![[clip_fingerprint_2.png|200]]
 
 ![[clip_fingerprint.png|400]]
 
-These fingerprints are formed into a feature map, that resembles the coordinates of the original grid. This feature map is then analyzed for local gradient magnitudes across every horizontal and vertical axes, which is used to calculate the [[Lipschitz-Konstante|Lipschitz constant]] of the local changes between images.
+
+These fingerprints are formed into a feature map that preserves the original ($\alpha, \beta$) coordinates. This feature map is analyzed for local gradient magnitudes across horizontal and vertical axes, then used to compute the Lipschitz constant, which measures output sensitivity between grid neighbors.
+
 
 ![[Lipschitz_at_Fractal.png|400]]
 
-In this resulting field every image cell has a Lipschitz amplitude towards their neighbors. If we take the mean value of every neighbor we have a single value for each cell compared to its neighbors. This value can be plotted over the original image grid.
+Each cell's Lipschitz amplitude is averaged across neighbors, yielding a stability field overlaid on the original grid. Rift regions show explosively high values, confirming extreme sensitivity where concepts collide.
+
 
 ![[amplitude_grid_plot.png|400]]
 
 ![[lipschitz_grid_50x50.png|400]]
 
-The plot reveals in clear detail the points of divergence between the phases. A border ist formed between the mountain manifold and the cat manifold. The highest value being at the rift where the model breaks down and generates unplausible images.
+The Lipschitz field reveals phase divergence in clear detail. A sharp border cleanly separates mountain and cat manifolds, peaking at the fractal rift where model coherence collapses.
 
-These resulting structures are quite stunning to look at. They were reminding me of mappings of cosmic voids. Huge, nearly galaxy-free bubbles in the universe which are surrounded by large galaxy clusters which result through gravitational instabilities that cause matter to clump into dense structures.
+The resulting structures are quite stunning. They distinctly remind me of mappings of cosmic voids—vast galaxy-free bubbles ringed by dense clusters, born from gravitational instabilities that cause matter to clump. Speculatively, latent space could similarly enforce its "semantic gravity," which pulls images toward stable concepts, leaving rifts at the unstable frontier.
 
-![[cosmic voids.jpg]]
+The bit-level Lipschitz divergence is reproducible and confirms Lobashev et al. (2025)'s observations. Now we shift to the project's purpose: exploring what novel forms might emerge from these semantic voids.
 
-**Image:** Light distribution of galaxies generated in the Millennium Simulation. [Max Planck Institute for Astrophysics]
+### Exploration: Finding novel Image output
 
-## Image to Latent
+#### Encoding Images to Grid Vertecies
 
-From that point I was interested in using this structure to span different grids to analyse their intersections. A thing I wanted to try is converting existing images into latents to form the grid verteces. 
-
-The paper [[Probability Density Geodesics in Image Diffusion Latent Space]] discusses similar conundrums of the inherent geometry of the latent space. They developed a method for transferring existing images into latent space and interpolating between them.
-
-I was very amused by their examples of interpolating between the actor Dwayne "the Rock" Johnson and a literal Rock.
+Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et al. (2025), in _Probability Density Geodesics in Image Diffusion Latent Space_, tackle similar latent geometry challenges, developing methods to encode existing images and trace interpolations between them. I was particularly amused by their example of interpolating between actor Dwayne "The Rock" Johnson and a literal rock.
 
 ![[the rock to rock.png]]
 
-During this research I talked with a friend about our work who teaches art in middle school.
-
-The introduced me to a project she did with her class called "Symbiosis." Every kid got to choose two patches of different textures on paper and had to glue them on a sheet of paper. Then every kid had to draw the space in-between those textures, basically a form of interpolation.
+This echoed a conversation with a middle school art teacher friend, who introduced her class's _"Symbiosis"_ project: students chose two contrasting texture patches and glued them onto a sheet of paper, then hand-drew the space in between. A form of manual interpolation.
 
 [[Kunstunterricht_Ideen_Symbiose.pdf]]
 
 ![[symbiose (8).jpeg|300]]
 
-What sparked my interest was the idea of taking these patches and feeding them into the latent space to compare my interpolations with the ones of the class.
+What sparked my interest was the idea of encoding these texture patches as latent vertices and then comparing the resulting interpolation grid with their human-drawn counterparts.
 
-There I stumbled onto a wall that I could not overcome yet. It seemed that either the encoding or decoding process had some trouble. I tried different methods, even just importing the original cat and mountain images of a grid into the latent space, it seemed that for this time after a lot of troubleshooting I had to shift to a different approach. I will surely return to this once I have the necessary knowledge.
+Initial experiments hit a hard limit. It seemed that either my encoding or decoding approach was flawed, resulting in malformed image diffusion. Even importing the original _"cat/mountain"_ images from previous experiments proved troubling. This wall seemed intractable for now, so I decided to revisit it later with the necessary knowledge and focus first on a different approach.
 
 ![[grid_plot_20260210_023309.png|300]]
 
+#### Exploring Concepts beyond neutral prompts
 
-## Exploring Latent Spcae
+Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by $z_0, z_1, z_2, z$, replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
 
-I decided to try a different route and use the existing parallelogram formed with the random latents ($z0, z1, z2, z$) and shift the very neutral prompts of the hessian geometry paper away to something more tangible.
-
-To see if I can find model failures or interesting images in these spaces.
-
-I tried prompting for textures and ornaments.
+Here is an exploration of textures and ornaments:
 
 ![[grid_10x10_ornaments.png|400]]
 
+What sparked my interest the most was the metaphor of discovering the latent space being similar to discovering the universe like a satellite.
 
-What sparked my interest the most was extending the metaphor of discovering the latent space being similar to discovering the universe like a satellite.
+A notable video is the uncut stream of all 341,805 images of the Cassini's Saturn mission (2004-2015) endures with mesmerizing, eerie quality, depicting space as almost Lovecraftian. 
 
-One of my favorite videos on the internet is an uncut stream of every of the 341,805 images the Cassini Satellite took on its flight to Saturn between 2004 and 2015. The footage has a mesmerizing quality and eeriness to it, really depicting space as a space almost lovecraftian.
+**positive prompts:** 
+	*"NASA Cassini spacecraft image of Saturn in greyscale with intricate rings casting sharp shadows, distant moons like Enceladus and Titan visible, realistic colors, scientific photography, high resolution, from orbit, dramatic lighting from sunlight, vast space background, artifacts"*
 
-https://www.youtube.com/watch?v=4c8eSr7x7AA
+**negative prompts:** 
+	*"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
 
-With these depicted prompts I searched through the grid to see what I can discover. Trying to get to the fringes of the model. I started extending the [[scalar|scalars]] $a$ and $b$ close to 10 times, sometimes 1000 times their size, which resulted in that the latents could not even be reprojected to the Gaussian annulus to produce a coherent image. A place where - if I might stay in the metaphore - we have escaped the observable universe.
-
-```
-**cassini_pos** = "NASA Cassini spacecraft image of Saturn in greyscale with intricate rings casting sharp shadows, distant moons like Enceladus and Titan visible, realistic colors, scientific photography, high resolution, from orbit, dramatic lighting from sunlight, vast space background, artifacts"
-
-**cassini_neg** = "centered subject, stock photo, person, ornament, fantasy, colorful, flashy"
-
-```
+With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $\alpha, \beta$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $|\mathbf{z}| \gg 128$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
 
 ![[out_of_latent_space.png|400]]
 
-Some of the resulting images had an uncanny beauty to them in my opinion. 
 
 
+### References
 
 
+[lobashev2025]: https://arxiv.org/abs/XXXX.XXXXX Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*.
 
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-> [!Perplexity]
-> `torch.norm()` berechnet die **L2-Norm** (euklidische Norm) eines Tensors und misst dessen "Länge" oder Magnitude im Vektorraum.
-> 
-> Für einen Latent-Vektor `z` (z. B. Shape `(1, 4, 64, 64)`) gibt `torch.norm(z)` den **skalaren Radius** zurück:
-
-
-- **Gauß-Raum**: `torch.randn()` füllt **alles** gleichmäßig.
-
-
-> [!Perplexity]
-> Ja, `z0` entsteht zunächst im **allgemeinen Gauß-Raum** (dem Zentrum der standardisierten Gauß-Verteilung, also reines Rauschen mit Radius nahe 0). Erst der Reverse-Diffusionsprozess (Denoisierung) zieht es schrittweise zum **Gaussian Annulus** hin, wo valide Latent-Vektoren liegen, die zu hochwertigen Bildern dekodiert werden.
-
-
-
-
-
-$R4×64×64$
-
-![[Pasted image 20260217160827.png]]
-
-
-
-```
-# Core Paramters
-latent_height, latent_width = 64, 64
-latent_channels = 4
-
-# Fixed Seeds
-gen0 = torch.Generator(device=device).manual_seed(0)
-gen1 = torch.Generator(device=device).manual_seed(123)
-gen2 = torch.Generator(device=device).manual_seed(200)
-
-# Random Latents
-z0 = randn_tensor((1, latent_height, latent_width, latent_channels)
-                  generator=gen0,
-                  device=device,
-                  dtype=torch.float16)
-
-z1 = randn_tensor((1, latent_height, latent_width, latent_channels), 
-                  generator=gen1, 
-                  device=device, 
-                  dtype=torch.float16)
-
-z2 = randn_tensor((1, latent_height, latent_width, latent_channels), 
-                  generator=gen2, 
-                  device=device, 
-                  dtype=torch.float16)
-                  
-# Permuting Latent Shape for Stable Diffusion
-z0 = z0.permute(0, 3, 1, 2)
-z1 = z1.permute(0, 3, 1, 2)
-z2 = z2.permute(0, 3, 1, 2)
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-## Ideen
-
-Baue Grids mit [[Nuclear Mysticism]] ein.
+[cassini-video]: https://www.youtube.com/watch?v=4c8eSr7x7AA "11 Years of Cassini Saturn Photos in 3 hrs 48 min" (n.d.).
