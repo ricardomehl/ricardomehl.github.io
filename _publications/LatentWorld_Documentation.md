@@ -551,14 +551,36 @@ A notable video is the uncut stream of all 341,805 images of the Cassini's Satur
 > **negative prompts:** 
 > *"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
 
-With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\lvert \mathbf{z} \rvert \gg 128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
-
+With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\lvert \mathbf{z} \rvert \gg 128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. 
 
 <img src="/images/Komprimiert/out_of_latent_space.jpg" 
      alt="Beschreibung" 
      class="image_medium">
 
+Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
+
+<img src="/images/Komprimiert/lw_1.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+	 
+<img src="/images/Komprimiert/lw_2.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+
+<img src="/images/Komprimiert/lw_3.jpg" 
+     alt="Beschreibung" 
+     class="image_small">
+
+
+## Reflection
+
+This research project taught me to overcome my hesitation in reading AI and ML papers for true understanding and in looking up and implementing mathematical theorems. Replicating a paper’s process forced me to pay attention to the details and ensure everything ran correctly. While it strengthened my perspective on the mathematical and data-driven aspects of a project, I find the most fulfillment when I can combine these elements with concepts I am personally passionate about. I hope to incorporate some of these lessons into my master’s thesis, which I plan to pursue after my break semester, when I will have a clearer preview of the topic I want to explore.
+
+
 ## References
 
 - Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*. [arXiv link](https://arxiv.org/abs/2506.10632)
+
+- Yu, Q., Singh, J., Yang, Z., Tu, P. H., Zhang, J., Li, H., Hartley, R., & Campbell, D. (2025). *Probability Density Geodesics in Image Diffusion Latent Space*. [arXiv link](https://arxiv.org/abs/2504.06675)
+
 - "11 Years of Cassini Saturn Photos in 3h 48min" (n.d.). [YouTube video](https://www.youtube.com/watch?v=4c8eSr7x7AA)
