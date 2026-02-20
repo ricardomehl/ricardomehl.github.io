@@ -177,7 +177,7 @@ Decoding grid point $$z$$ immediately reveals the first challenge: The reason th
      class="image_medium">
 
 
-To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. To skip this explanation and get to the sampling, please proceed to chapter [sampling the grid].
+To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. 
 
 ### Understanding Gaussian Hypersphere Normalization
 
