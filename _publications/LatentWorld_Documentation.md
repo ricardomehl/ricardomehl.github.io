@@ -13,11 +13,11 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+<div style="text-align: center;">
   <h1>LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
-	Ricardo Mehl
-	MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm
-	mehlri77989@th-nuernberg.de
+  <p>Ricardo Mehl</p>
+  <p>MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm</p>
+  <p>mehlri77989@th-nuernberg.de</p>
 </div>
 
 
