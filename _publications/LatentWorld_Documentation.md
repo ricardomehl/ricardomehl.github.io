@@ -435,10 +435,7 @@ Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent
 <img src="/images/Komprimiert/plot_system.jpg" 
      alt="Beschreibung" 
      class="image_medium">
-
-> [!NOTE]
-> Das könntest du nochmal samplen dass du auch das interval von 0 bis 1 hast
-
+	 
 
 ## Results: Mapping Semantic Fractures
 
@@ -546,11 +543,13 @@ What sparked my interest the most was the metaphor of discovering the latent spa
 
 A notable video is the uncut stream of all 341,805 images of the Cassini's Saturn mission (2004-2015) endures with mesmerizing, eerie quality, depicting space as almost Lovecraftian. 
 
-**positive prompts:** 
-	*"NASA Cassini spacecraft image of Saturn in greyscale with intricate rings casting sharp shadows, distant moons like Enceladus and Titan visible, realistic colors, scientific photography, high resolution, from orbit, dramatic lighting from sunlight, vast space background, artifacts"*
 
-**negative prompts:** 
-	*"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
+> **positive prompts:** 
+> *"NASA Cassini spacecraft image of Saturn in greyscale with intricate rings casting sharp shadows, distant moons like Enceladus and Titan visible, >
+> realistic colors, scientific photography, high resolution, from orbit, dramatic lighting from sunlight, vast space background, artifacts"*
+
+> **negative prompts:** 
+> *"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
 
 With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\lvert \mathbf{z} \rvert \gg 128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
 
