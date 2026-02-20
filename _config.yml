@@ -243,10 +243,10 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
-      read_time: true
+      author_profile: false
+      read_time: false
       comments: true
-      share: true
+      share: false
       related: true
   # _pages
   - scope:
@@ -270,8 +270,8 @@ defaults:
       type: publications
     values:
       layout: single
-      author_profile: true
-      share: true
+      author_profile: false
+      share: false
       comments: true
   # _portfolio
   - scope:
