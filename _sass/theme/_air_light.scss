@@ -53,3 +53,9 @@ $sidebar-screen-min-width   : 1024px;
     --global-text-color-light           : #{$light-primary-color};
     --global-thead-color                : #{$background-lighter};
 }
+
+/* Tabellen-Header anpassen */
+table thead th {
+    color: white;
+    background-color: #0092ca;
+}
