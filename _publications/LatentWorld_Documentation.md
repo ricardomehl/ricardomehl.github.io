@@ -10,6 +10,8 @@ slidesurl: 'https://ricardomehl.github.io/files/slides1.pdf'
 paperurl: 'https://ricardomehl.github.io/files/paper1.pdf'
 bibtexurl: 'https://ricardomehl.github.io/files/bibtex1.bib'
 citation: 'Mehl Ricardo, You. (2026). &quot;LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images Number 1.&quot; <i>Journal 1</i>. 1(1).'
+show_title: false
+show_date: false
 ---
 
 <style>
