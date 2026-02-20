@@ -46,7 +46,7 @@ While Lobashev et al. (2025) aimed to map coherent paths through these phase tra
 
 ### Replicating Lobashev et al.'s Experimental Protocol
 
-To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to $η = 0$ (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
+To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to \\[η = 0\\] (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
 
 ### GPU-Optimized Experimental Infrastructure
 
@@ -58,7 +58,7 @@ For **512x512px** images, the model requires a base memory of **4-6 GB**, workin
 
 ### Grid Spanning in Latent Space
 
-Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents $z_0$, $z_1$, $z_2$ form the corners, from which a fourth point $z$ is calculated via vector addition: $z = (z_0 - z_1) + (z_0 - z_2)$. I then sampled the grid points by iterating through vector scalars $α$ and $β$ to obtain different position values for $z$.
+Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents \\[z_0, z_1, z_2\\] form the corners, from which a fourth point \\[z\\] is calculated via vector addition: \\[z = (z_0 - z_1) + (z_0 - z_2)\\]. I then sampled the grid points by iterating through vector scalars \\[α\\] and \\[β\\] to obtain different position values for \\[z\\].
 
 I started by generating three random latents. A latent is a compressed numerical representation of an image in latent space. It is **1/8** of the output image size, meaning a **64x64** latent results in a **512x512px** image. We decode this latent through a diffusion pipeline.
 
@@ -416,7 +416,7 @@ Initial experiments hit a hard limit. It seemed that either my encoding or decod
 
 ### Exploring Concepts beyond neutral prompts
 
-Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by \[ z_0, z_1, z_2, z \], replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
+Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by \\[z_0, z_1, z_2, z\\], replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
 
 Here is an exploration of textures and ornaments:
 
