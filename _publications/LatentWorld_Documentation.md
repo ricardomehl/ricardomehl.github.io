@@ -21,6 +21,10 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 </div>
 
 
+<img src="images/Komprimiert/2D_Gauss_4x.png" alt="Beschreibung des Bildes">
+
+
+
 > [!NOTE]
 > Vergiss nicht KEYWORDS (4-6)
 
