@@ -1,0 +1,5 @@
+.page.publications .page__title,
+.page.publications .page__date,
+.page.publications p:has(> i.fa-calendar) {
+  display: none;
+}
