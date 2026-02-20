@@ -22,11 +22,11 @@ img {
     margin: 0 auto;
 }
 .image_big {
-    width: 90%;
+    width: 70%;
     max-width: 1000px;
 }
 .image_medium {
-    width: 70%;
+    width: 60%;
     max-width: 600px;
 }
 .image_small {
