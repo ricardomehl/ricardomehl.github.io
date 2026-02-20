@@ -13,46 +13,40 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 
 ---
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <h1>LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images</h1>
+	Ricardo Mehl
+	MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm
+	mehlri77989@th-nuernberg.de
 </div>
 
-
-#LatentWorld: Exploration of Latent Space Phase Transitions as a way of generating novel Images
-
-Ricardo Mehl
-
-MA Design for Digital Futures, Nuremberg Institute of Technology Georg Simon Ohm
-
-mehlri77989@th-nuernberg.de
-
-> [!NOTE]
-> Du kannst hier eine simplifizierte version deines Codes auf Github anbieten
 
 > [!NOTE]
 > Vergiss nicht KEYWORDS (4-6)
 
-### Introduction/Related Work: The Landscape of Latent Spaces
+<meta name="keywords" content="LatentWorld, Latent Space, Phase Transitions, Image Generation, AI Art, Generative Models">
+
+## Introduction/Related Work: The Landscape of Latent Spaces
 
 The latent space in generative models like Stable Diffusion is a compressed, abstract representation of high-dimensional image data encoded in tandem with semantic concepts from training into a lower-dimensional space. This space can be described as a navigable map: similar images or ideas cluster nearby, enabling the decoder to reconstruct visuals from targeted points, which users typically steer toward using text prompts.
 
 This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). _Hessian Geometry of Latent Space in Generative Models_, which conceptualizes latent space exploration as navigating a country. Their exploration was deliberately neutral, employing minimal guidance to unveil the latent space's inherent geometry without targeted semantic steering. Using Stable Diffusion 1.5 with generic prompts such as "High quality picture, 4k, detailed" and negative prompts such as "blurry, ugly, stock photo," the authors let the model's training biases surface organically. By scattering a two-dimensional grid of latents, they analyzed the space's geometry, uncovering phase transitions between semantic concepts such as "cat" and "mountain." These transitions manifest as rifts where the diffusion model becomes unstable, generating fractal patterns of either concept that extend to the model's bit-level resolution. Notably, interpolations within certain rifts introduce emergent third concepts, such as "car," highlighting the latent space's intricate, non-linear structure.
 
-#### Implications: Semantic Archipelagos
+### Implications: Semantic Archipelagos
 
 The implications suggest that no clear semantic bridge exists between concepts like "cat" and "mountain." My hypothesis is that because human categories are, by definition, an imperfect map cast over a territory, a partial overlay of which an indissoluble residue lingers beyond language or imagination, what psychoanalyst Jacques Lacan would describe as *"the Real"*. The unrepresentable excess that neural networks, trained on our vast conceptual datasets, cannot help but retrace in their own fractured geometry. If such a space is described in terms of geography, it emerges as an archipelago of semi-disconnected islands of varying sizes.
 
-#### Artistic Motivation: Embracing Model Failure
+### Artistic Motivation: Embracing Model Failure
 
 While Lobashev et al. (2025) aimed to map coherent paths through these phase transitions for sensible image interpolation, my interest veered toward the rifts themselves: deliberate expeditions into semantic fractures to unearth new, unusual images. To me, generative AI's most captivating outputs emerge when it essentially "fails" at what it does—producing glitches and anomalies that, like an artist's brushstroke, alter what they depict but reveal something deeper about the medium and its process. These "neural blobs" or hallucinations parallel "light leaks" or "grain" in photography: flaws that transform into stylistic qualities, artifacts of process that artists actively seek out.
 
-### Methods: Replicating Latent Cartography
+## Methods: Replicating Latent Cartography
 
-#### Replicating Lobashev et al.'s Experimental Protocol
+### Replicating Lobashev et al.'s Experimental Protocol
 
 To ground this artistic pursuit in empirical reality, I first replicated key aspects of the paper's setup, verifying the fractal rifts at semantic boundaries. The authors employed Stable Diffusion 1.5 with Lyknos's Dreamshaper 8 checkpoint. Positive prompts were minimal: "High quality picture, 4k, detailed"; negative prompts excluded artifacts: "blurry, ugly, stock photo." They set the DDIM parameter to $η = 0$ (no added noise) to yield deterministic outputs, used a CFG scale of 5, and ran 50 inference steps. I enforced a fixed seed across all generations for exact replicability.
 
-#### GPU-Optimized Experimental Infrastructure
+### GPU-Optimized Experimental Infrastructure
 
 The pipeline was developed in JupyterLab within a Conda environment running PyTorch on CUDA, enabling parallel image generation across GPU cores.
 
@@ -60,7 +54,7 @@ The hardware used was an **RTX 4090 GPU** with a **Ryzen 7950X CPU** and **128 G
 
 For **512x512px** images, the model requires a base memory of **4-6 GB**, working in float16 half-precision—a standard often used for efficient AI and machine learning inference—with peak memory usage around **6-8 GB** during image generation. Mid-range systems suffice here, though higher resolutions spike memory demands, pushing inference from faster VRAM to a slower CPU/DRAM combination.
 
-#### Grid Spanning in Latent Space
+### Grid Spanning in Latent Space
 
 Following Lobashev et al. (2025), I spanned a grid in latent space to probe semantic boundaries, sampling up to 2,500 images across iterations. Three random latents $z_0$, $z_1$, $z_2$ form the corners, from which a fourth point $z$ is calculated via vector addition: $z = (z_0 - z_1) + (z_0 - z_2)$. I then sampled the grid points by iterating through vector scalars $α$ and $β$ to obtain different position values for $z$.
 
@@ -127,7 +121,7 @@ Decoding grid point $z$ immediately reveals the first challenge: The reason the 
 
 To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. To skip this explanation and get to the sampling, please proceed to chapter [sampling the grid].
 
-#### Understanding Gaussian Hypersphere Normalization
+### Understanding Gaussian Hypersphere Normalization
 
 Lobashev et al. (2025) note that diffusion models expect latents within a Gaussian probability space. Let's build this intuition dimension by dimension.
 
@@ -197,7 +191,7 @@ If applied to the latent space of Stable Diffusion, $\sqrt{d} = \sqrt{16384} = 1
 
 While point $z$, calculated through linear combination, drifts far outside: $\Vert\mathbf{z}\Vert = 219.8750 \gg \sqrt{d}$. If normalized to $\sqrt{d} = 128$, latent $z$ will return a plausible image.
 
-#### Sampling the Grid
+### Sampling the Grid
 
 ![[take a guess.png|400]]
 
@@ -296,7 +290,7 @@ betas = np.linspace(0.4, 0.6, sampling_steps) # beta interval (colums/y)
 
 ![[Fractal_analysis.png|400]]
 
-#### Batching Pipeline Optimization
+### Batching Pipeline Optimization
 
 To accelerate grid exploration, I implemented GPU batching, processing multiple latents in parallel through single U-Net forward passes per denoising step. On 24GB VRAM (RTX 4090), a batch size of 8-12 hits the sweet spot, reducing per-image reverse diffusion from 2s to 0.3s (6.7× speedup).
 
@@ -348,9 +342,9 @@ Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent
 > Das könntest du nochmal samplen dass du auch das interval von 0 bis 1 hast
 
 
-### Results: Mapping Semantic Fractures
+## Results: Mapping Semantic Fractures
 
-#### Initial Rift discovery
+### Initial Rift discovery
 
 Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly: a hybrid form blending both mountain and cat features, failing to resolve into either concept. This could be indicative of the phase transitions discussed in the paper.
 
@@ -364,7 +358,7 @@ At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp bou
 
 ![[rift between 2.png|400]]
 
-#### CLIP Lipschitz Analysis
+### CLIP Lipschitz Analysis
 
 Lobashev et al. (2025) rigorously quantify this geometry. To detect the distinct phases, they trained a neural network on the log-partition function to reconstruct the Fisher information metric of the space, which had discontinuities along the borders between concepts. Through this approach, they calculated geodesic paths between semantic domains, achieving smooth interpolations. To quantify model instability at transitions, they used the Lipschitz constant—a measure tracking the rate of change of a function. At phase boundaries, this constant diverges, suggesting extreme fluctuations in model output resulting from only small changes to the input latent vector, even at scales of $10^{-8}$ (the model's resolution at half-precision bit level).
 
@@ -398,9 +392,9 @@ The resulting structures are quite stunning. They distinctly remind me of mappin
 
 The bit-level Lipschitz divergence is reproducible and confirms Lobashev et al. (2025)'s observations. Now we shift to the project's purpose: exploring what novel forms might emerge from these semantic voids.
 
-### Exploration: Finding novel Image output
+## Exploration: Finding novel Image output
 
-#### Encoding Images to Grid Vertecies
+### Encoding Images to Grid Vertecies
 
 Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et al. (2025), in _Probability Density Geodesics in Image Diffusion Latent Space_, tackle similar latent geometry challenges, developing methods to encode existing images and trace interpolations between them. I was particularly amused by their example of interpolating between actor Dwayne "The Rock" Johnson and a literal rock.
 
@@ -418,7 +412,7 @@ Initial experiments hit a hard limit. It seemed that either my encoding or decod
 
 ![[grid_plot_20260210_023309.png|300]]
 
-#### Exploring Concepts beyond neutral prompts
+### Exploring Concepts beyond neutral prompts
 
 Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by $z_0, z_1, z_2, z$, replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
 
@@ -442,7 +436,7 @@ With the depicted prompts, I sampled the grid for novel discoveries. Trying to p
 
 
 
-### References
+## References
 
 
 [lobashev2025]: https://arxiv.org/abs/XXXX.XXXXX Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). *Hessian Geometry of Latent Space in Generative Models*.
