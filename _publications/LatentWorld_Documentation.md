@@ -34,18 +34,6 @@ img {
     max-width: 300px;
 }
 
-	
-table {
-    background-color: white;
-    color: black;
-    border-collapse: collapse;
-}
-
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 0.5em;
-}
-
 </style>
 
 
