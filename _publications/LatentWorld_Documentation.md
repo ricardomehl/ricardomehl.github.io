@@ -17,8 +17,6 @@ citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 
 /* IMAGE STYLING */
 <style>
 img {
-    width: 70%;
-    max-width: 600px;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -26,6 +24,10 @@ img {
 .image_big {
     width: 90%;
     max-width: 1000px;
+}
+.image_medium {
+    width: 70%;
+    max-width: 600px;
 }
 .image_small {
     width: 40%;
@@ -35,7 +37,7 @@ img {
 
 
 
-
+/*-----------------------------------------------------------------------------------------------------------------------*/
 
 
 <div style="text-align: center;">
@@ -46,29 +48,16 @@ img {
 </div>
 
 
-$$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
-
-\\[z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)\\]
-
-
-<img src="/images/Komprimiert/2D_Gauss_4x.png" 
-     alt="Beschreibung" 
-     class="image_small">
-
-> [!NOTE]
-> Vergiss nicht KEYWORDS (4-6)
-
-<meta name="keywords" content="LatentWorld, Latent Space, Phase Transitions, Image Generation, AI Art, Generative Models">
-
 ## Introduction/Related Work: The Landscape of Latent Spaces
 
 The latent space in generative models like Stable Diffusion is a compressed, abstract representation of high-dimensional image data encoded in tandem with semantic concepts from training into a lower-dimensional space. This space can be described as a navigable map: similar images or ideas cluster nearby, enabling the decoder to reconstruct visuals from targeted points, which users typically steer toward using text prompts.
 
 This project builds on the approach in Lobashev, A., Guskov, D., Larchenko, M., & Tamm, M. (2025). _Hessian Geometry of Latent Space in Generative Models_, which conceptualizes latent space exploration as navigating a country. Their exploration was deliberately neutral, employing minimal guidance to unveil the latent space's inherent geometry without targeted semantic steering. Using Stable Diffusion 1.5 with generic prompts such as "High quality picture, 4k, detailed" and negative prompts such as "blurry, ugly, stock photo," the authors let the model's training biases surface organically. By scattering a two-dimensional grid of latents, they analyzed the space's geometry, uncovering phase transitions between semantic concepts such as "cat" and "mountain." These transitions manifest as rifts where the diffusion model becomes unstable, generating fractal patterns of either concept that extend to the model's bit-level resolution. Notably, interpolations within certain rifts introduce emergent third concepts, such as "car," highlighting the latent space's intricate, non-linear structure.
 
+
 <img src="/images/Komprimiert/paper_hessian_geometry.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 
 ### Implications: Semantic Archipelagos
@@ -135,14 +124,14 @@ z2 = z2.permute(0, 3, 1, 2)
 
 <img src="/images/Komprimiert/seeds.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 
 From the three base latents, a triangle naturally forms in latent space:
 
 <img src="/images/Komprimiert/forming_a_triangle.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 Decoding these corner latents via the replicated pipeline ($$η$$=0, CFG=5, 50 steps) immediately yields cats and mountains—strikingly similar to Lobashev et al. (2025), despite different random seeds.
 
@@ -152,7 +141,7 @@ Decoding these corner latents via the replicated pipeline ($$η$$=0, CFG=5, 50 s
 
 <img src="/images/Komprimiert/first_latents.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 	 
 
 Through linear combination $$z = (z_0 - z_1) + (z_0 - z_2)$$ the triangle transforms into a parallelogram:
@@ -164,7 +153,7 @@ $$z = z_0 + \alpha (z_1 - z_0) + \beta (z_2 - z_0)$$
 
 <img src="/images/Komprimiert/bayersic_combination.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 
 Decoding grid point $$z$$ immediately reveals the first challenge: The reason the image looks this way is because raw latents require normalization to the VAE's expected probability range to be decoded into a plausible image.
@@ -172,7 +161,7 @@ Decoding grid point $$z$$ immediately reveals the first challenge: The reason th
 
 <img src="/images/Komprimiert/decoding_z.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 
 To fully understand what this normalization process does and to which point exactly the Latent gets normalized it is sensible to look into the math behind it. To skip this explanation and get to the sampling, please proceed to chapter [sampling the grid].
@@ -207,7 +196,7 @@ Extending the intuition from the previous examples, a constant probability value
 
 <img src="/images/Komprimiert/dimension-1_title.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_big">
 
 This constant probability value can again be depicted as a sphere for the simple reason that a vector equidistant from a center point at 0 in every direction can be visualized that way, even in spaces exceeding 16,000 dimensions. This structure is known as a Gaussian hypersphere or (d−1)-sphere ($$S^{d-1}$$).
 
@@ -220,11 +209,11 @@ $$β$$
 
 <img src="/images/Komprimiert/z_norm.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 	 
 <img src="/images/Komprimiert/grid_functioning.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 This raises a crucial question: If normalization to the Gaussian hypersphere was required for the calculated point $$z$$ to produce plausible images, why did the latents $$z_0, z_1, z_2$$ appear on it without any adjustment?
 
@@ -255,11 +244,11 @@ As dimension $$d$$ increases, the annulus thins relative to the radius $$\sqrt{d
 
 <img src="/images/Komprimiert/high_dimensional_center_mass.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 	 
 <img src="/images/Komprimiert/high_dimensional_center_mass_2.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 	 
 If applied to the latent space of Stable Diffusion, $$\sqrt{d} = \sqrt{16384} = 128$$ using the `tensor.norm()` function, calculating the magnitudes of the latents $$z_0, z_1, z_2$$ gives positions very close to the annulus.
 
@@ -275,7 +264,7 @@ While point $$z$$, calculated through linear combination, drifts far outside: $$
 
 <img src="/images/Komprimiert/take a guess.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 By establishing a local `target_norm` from latents $$z0,z1,z2$$,
 
@@ -296,7 +285,7 @@ point $z$ can be normalized and decoded into a plausible image.
 
 <img src="/images/Komprimiert/grid_functioning.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 With normalization solved, the parallelogram becomes fully decodable. Lobashev et al. (2025) sampled **60,000 points** for exhaustive analysis; my home setup maxed out at **2,500**, still revealing fractal rifts clearly.
 
@@ -372,7 +361,7 @@ betas = np.linspace(0.4, 0.6, sampling_steps) # beta interval (colums/y)
 
 <img src="/images/Komprimiert/Fractal_analysis.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 ### Batching Pipeline Optimization
 
@@ -418,13 +407,13 @@ The resulting images are exported to disk, with an accompanying `metadata.json` 
 
 <img src="/images/Komprimiert/folder and metadata.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 Leveraging the `metadata.json` positional data, Matplotlib visualizes the latent grid with dual annotations: grid indices ($$x, y$$ intervals) and parameter coordinates ($$\alpha$$, $$\beta$$) for each point.
 
 <img src="/images/Komprimiert/plot_system.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 > [!NOTE]
 > Das könntest du nochmal samplen dass du auch das interval von 0 bis 1 hast
@@ -438,21 +427,21 @@ Increasing the grid resolution to 10×10 (100 images) exposes the first anomaly:
 
 <img src="/images/Komprimiert/10x10 grid.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 <img src="/images/Komprimiert/erste anomalie 3.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 At 50×50 resolution (2,500 images), the semantic rift crystallizes: a sharp boundary separates stable cat ↔ mountain domains, with fractal instability concentrated at the transition's northern edge, where the anomaly was spotted.
 
 <img src="/images/Komprimiert/50x50 plot.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 <img src="/images/Komprimiert/rift between 2.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 ### CLIP Lipschitz Analysis
 
@@ -470,23 +459,23 @@ Each grid image is fed through CLIP's image encoder to extract image features yi
 
 <img src="/images/Komprimiert/clip_fingerprint.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_big">
 
 These fingerprints are formed into a feature map that preserves the original ($$\alpha, \beta$$) coordinates. This feature map is analyzed for local gradient magnitudes across horizontal and vertical axes, then used to compute the Lipschitz constant, which measures output sensitivity between grid neighbors.
 
 <img src="/images/Komprimiert/Lipschitz_at_Fractal.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 Each cell's Lipschitz amplitude is averaged across neighbors, yielding a stability field overlaid on the original grid. Rift regions show explosively high values, confirming extreme sensitivity where concepts collide.
 
-<img src="/images/Komprimiert/amplitude_grid_plot.png" 
+<img src="/images/Komprimiert/amplitude_grid_plot.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
-<img src="/images/Komprimiert/lipschitz_grid_50x50.png" 
+<img src="/images/Komprimiert/lipschitz_grid_50x50.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 The Lipschitz field reveals phase divergence in clear detail. A sharp border cleanly separates mountain and cat manifolds, peaking at the fractal rift where model coherence collapses.
 
@@ -502,11 +491,11 @@ Inspired by these fractal rifts, I explored image-derived grid vertices. Yu et a
 
 <img src="/images/Komprimiert/paper_density_geodesics.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 <img src="/images/Komprimiert/the rock to rock.png" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 This echoed a conversation with a middle school art teacher friend, who introduced her class's _"Symbiosis"_ project: students chose two contrasting texture patches and glued them onto a sheet of paper, then hand-drew the space in between. A form of manual interpolation.
 
@@ -518,9 +507,9 @@ What sparked my interest was the idea of encoding these texture patches as laten
 
 Initial experiments hit a hard limit. It seemed that either my encoding or decoding approach was flawed, resulting in malformed image diffusion. Even importing the original _"cat/mountain"_ images from previous experiments proved troubling. This wall seemed intractable for now, so I decided to revisit it later with the necessary knowledge and focus first on a different approach.
 
-<img src="/images/Komprimiert/grid_plot_20260210_023309.png" 
+<img src="/images/Komprimiert/grid_plot_20260210_023309.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 ### Exploring Concepts beyond neutral prompts
 
@@ -528,9 +517,9 @@ Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** wit
 
 Here is an exploration of textures and ornaments:
 
-<img src="/images/Komprimiert/grid_10x10_ornaments.png" 
+<img src="/images/Komprimiert/grid_10x10_ornaments.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 What sparked my interest the most was the metaphor of discovering the latent space being similar to discovering the universe like a satellite.
 
@@ -544,9 +533,9 @@ A notable video is the uncut stream of all 341,805 images of the Cassini's Satur
 
 With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $\alpha, \beta$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $|\mathbf{z}| \gg 128$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
 
-<img src="/images/Komprimiert/out_of_latent_space.png" 
+<img src="/images/Komprimiert/out_of_latent_space.jpg" 
      alt="Beschreibung" 
-     class="image_small">
+     class="image_medium">
 
 ## References
 
