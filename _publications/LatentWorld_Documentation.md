@@ -556,7 +556,8 @@ A notable video is the uncut stream of all 341,805 images of the Cassini's Satur
 **negative prompts:** 
 	*"centered subject, stock photo, person, ornament, fantasy, colorful, flashy"*
 
-With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\mathbf{z}| \gg 128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
+With the depicted prompts, I sampled the grid for novel discoveries. Trying to push the fringes of the model, I started pushing scalars $$\alpha, \beta$$ to (10×–1000×) their range, catastrophically breaking Gaussian hypersphere projection. Latents drifted to $$\mathbf{z}|\gg128$$, yielding undecodable noise. A space where, to stay with the metaphor, latents escaped the observable universe into the incoherent void. Some of the resulting fringe images revealed an uncanny beauty, in my opinion.
+
 
 <img src="/images/Komprimiert/out_of_latent_space.jpg" 
      alt="Beschreibung" 
