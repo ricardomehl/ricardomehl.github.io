@@ -500,6 +500,10 @@ The Lipschitz field reveals phase divergence in clear detail. A sharp border cle
 
 The resulting structures are quite stunning. They distinctly remind me of mappings of cosmic voids—vast galaxy-free bubbles ringed by dense clusters, born from gravitational instabilities that cause matter to clump. Speculatively, latent space could similarly enforce its "semantic gravity," which pulls images toward stable concepts, leaving rifts at the unstable frontier.
 
+<img src="/images/Komprimiert/cosmic_voids.jpg" 
+     alt="Beschreibung" 
+     class="image_medium">
+
 The bit-level Lipschitz divergence is reproducible and confirms Lobashev et al. (2025)'s observations. Now we shift to the project's purpose: exploring what novel forms might emerge from these semantic voids.
 
 ## Exploration: Finding novel Image output
