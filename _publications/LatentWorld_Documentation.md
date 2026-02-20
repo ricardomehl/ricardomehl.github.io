@@ -416,7 +416,7 @@ Initial experiments hit a hard limit. It seemed that either my encoding or decod
 
 ### Exploring Concepts beyond neutral prompts
 
-Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by $z_0, z_1, z_2, z$, replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
+Abandoning image-derived latents, I pivoted to **prompt-guided rift diving** within the validated **random latent parallelogram** formed by \[ z_0, z_1, z_2, z \], replacing Lobashev et al.'s (2025) neutral prompts (_"high quality picture"_) with more concrete ones to reveal interesting image spaces.
 
 Here is an exploration of textures and ornaments:
 
