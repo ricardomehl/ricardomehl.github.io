@@ -32,12 +32,19 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
 ---
 
 <Layout title="Info — Ricardo Mehl">
-  <main class="projects-layout">
+  <div class="projects-layout">
     
-    <!-- Deine persistente Sidebar links bleibt unverändert -->
-    <Sidebar projects={projects} transition:persist="main-sidebar" />
 
-    <section class="about-content">
+     <!-- Platzhalter für Tag-Filter (reserviert exakt denselben Platz auf Desktop) -->
+    <div class="tag-filter-wrapper placeholder" aria-hidden="true"></div>
+
+
+    <aside class="sidebar-wrapper">
+        <Sidebar projects={projects} transition:persist="main-sidebar" />
+    </aside>
+
+
+    <div class="about-content">
   <div class="cv-flex-container">
     
     <!-- CV LISTE LINKS -->
@@ -110,9 +117,9 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
     </div>
 
   </div>
-</section>
+</div>
 
-  </main>
+</div>
 </Layout>
 
 
@@ -127,16 +134,36 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
   .projects-layout {
     display: grid;
     grid-template-columns: minmax(200px, 300px) 1fr;
-    gap: 2.5rem;
+    column-gap: 2.5rem;
     align-items: start;
-    padding: 0;
-    width: 100%;
   }
 
-  .about-content {
+  /* TAG FILTER PLACEHOLDER GRID POSITION */
+  .tag-filter-wrapper {
     grid-column: 2;
-    width: 100%;
+    grid-row: 1;
+    margin-bottom: 1rem;
   }
+
+ /* Platzhalter unsichtbar lassen, damit er Platz reserviert */
+  .tag-filter-wrapper.placeholder {
+    visibility: hidden;
+    min-height: 30.2px; /* Tags höhe in pxiel */
+  }
+
+  /* SIDEBAR GRID POSITION */
+    .sidebar-wrapper {
+      grid-column: 1;
+      grid-row: 2;
+      padding-top: 1rem;
+    }
+
+    .about-content {
+      grid-column: 2;
+      grid-row: 2;
+      padding-top: 1rem;
+      width: 100%;
+    }
 
   /* ====================================================== */
   /* 2. ABOUT CONTENT WITH GRID (Balancierte 3 Spalten)     */
