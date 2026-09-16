@@ -80,13 +80,19 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
 ---
 
 <Layout title={`${activeProject.title} — Ricardo Mehl`}>
-  <main class="projects-layout">
-    <Sidebar projects={allProjects} activeSlug={slug} transition:persist="main-sidebar"/>
+  <div class="projects-layout">
 
-    <section class="projects-image-feed">
+    <!-- Platzhalter für Tag-Filter (reserviert exakt denselben Platz auf Desktop) -->
+    <div class="tag-filter-wrapper placeholder" aria-hidden="true"></div>
+
+    <aside class="sidebar-wrapper">
+      <Sidebar projects={allProjects} activeSlug={slug} transition:persist="main-sidebar"/>
+    </aside>
+
+    <div class="projects-feed">
       
+      <!-- DESKTOP FEED (2 Spalten Zick-Zack) -->
       <div class="desktop-columns">
-        
         <div class="feed-column">
           {leftColumn.map((block: any) => (
             block._type === 'image' ? (
@@ -162,8 +168,10 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
             ) : null
           ))}
         </div>
+      </div>
 
-      </div> <div class="mobile-single-feed">
+      <!-- MOBILE FEED (1 Spalte) -->
+      <div class="mobile-single-feed">
         {contentBlocks.map((block: any) => (
           block._type === 'image' ? (
             <div class="detail-item image-item">
@@ -201,8 +209,8 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
         ))}
       </div>
 
-    </section>
-  </main>
+    </div>
+  </div>
 
   <dialog id="lightbox" class="lightbox">
     <button id="lightbox-close" class="lightbox-close" aria-label="Schließen">&times;</button>
@@ -218,34 +226,56 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
   .projects-layout {
     display: grid;
     grid-template-columns: minmax(200px, 300px) 1fr;
-    gap: 2.5rem; /* Abstand Sidebar Projektfeed */
+    column-gap: 2.5rem;
     align-items: start;
-    padding: 0rem;
   }
 
-  .projects-image-feed {
+  /* TAG FILTER PLACEHOLDER GRID POSITION */
+  .tag-filter-wrapper {
     grid-column: 2;
+    grid-row: 1;
+    margin-bottom: 1rem;
   }
 
-  /* DESKTOP LAYOUT (2-Spalten-Flexbox) */
+  /* Platzhalter unsichtbar lassen, damit er Platz reserviert */
+  .tag-filter-wrapper.placeholder {
+    visibility: hidden;
+    min-height: 30.2px; /* Tags höhe in pxiel */
+  }
+
+  /* SIDEBAR GRID POSITION */
+  .sidebar-wrapper {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    padding-top: 1rem;
+  }
+
+  /* PROJECT FEED GRID POSITION */
+  .projects-feed {
+    grid-column: 2;
+    grid-row: 2;
+    padding-top: 1rem;
+  }
+
+  /* DESKTOP LAYOUT (2-Spalten-Grid im Feed) */
   .desktop-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem; /* Kachel Abstand Horizontal */
+    gap: 2.5rem;
     align-items: start;
   }
 
   .feed-column {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem; /* Kachel Abstand Vertikal */
+    gap: 2.5rem;
   }
 
-  /* MOBILE LAYOUT (1 Spalte) */
+  /* MOBILE LAYOUT (1 Spalte im Feed) */
   .mobile-single-feed {
     display: none;
     flex-direction: column;
-    gap: 2rem; /* Kachel Abstand Horizontal (Mobile) */
+    gap: 2rem;
   }
 
   /* ====================================================== */
@@ -306,21 +336,37 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
   /* ====================================================== */
 
   @media (max-width: 900px) {
+    /* Grid auf 1 Spalte umstellen */
     .projects-layout {
       grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 1.5rem;
     }
 
-    .projects-image-feed {
-      grid-column: 1;
+    /* Auf Mobile wird der unsichtbare Platzhalter nicht gebraucht */
+    .tag-filter-wrapper.placeholder {
+      display: none;
     }
 
-    /* Auf Mobile/Tablets schalten wir um: */
+    /* 
+      Alle Wrapper auf die einzige Spalte (1) legen 
+      und die automatische Reihenfolge im HTML nutzen.
+    */
+    .sidebar-wrapper,
+    .projects-feed {
+      grid-column: 1 !important;
+      grid-row: auto !important;
+      padding-top: 0;
+    }
+
+    /* 2-Spalten-Desktop-Feed verbergen */
     .desktop-columns {
-      display: none; /* 2-Spalten-Layout ausblenden */
+      display: none;
     }
 
+    /* 1-Spalten-Mobile-Feed aktivieren */
     .mobile-single-feed {
-      display: flex; /* 1-Spalten-Layout aktivieren */
+      display: flex;
     }
   }
 </style>

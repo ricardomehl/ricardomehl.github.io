@@ -59,11 +59,18 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
 
 
 <Layout title="Ricardo Mehl">
-  <main class="projects-layout">
-    <Sidebar projects={projects} transition:persist="main-sidebar" />
 
-    <section class="projects-feed">
+<div class="projects-layout">
+
+    <div class="tag-filter-wrapper">
       <TagFilter tags={uniqueTags} />
+    </div>
+
+    <aside class="sidebar-wrapper">
+        <Sidebar projects={projects} transition:persist="main-sidebar" />
+    </aside>
+
+    <div class="projects-feed">
 
       <!-- DESKTOP FEED (2 Spalten Zick-Zack) -->
       <div class="desktop-columns">
@@ -179,8 +186,10 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
           </a>
         ))}
       </div>
-    </section>
-  </main>
+    </div>
+
+</div>
+
 </Layout>
 
 <!-- Filter-Tags Script: Verteilt die Kacheln dynamisch neu auf zwei Spalten -->
@@ -256,37 +265,58 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
   /* 1. LAYOUT & GRID STRUCTURE                             */
   /* ====================================================== */
 
+  .content-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
   .projects-layout {
     display: grid;
     grid-template-columns: minmax(200px, 300px) 1fr;
-    gap: 2.5rem; /* Abstand Sidebar Projektfeed */
+    column-gap: 2.5rem;
     align-items: start;
-    padding: 0rem;
   }
 
+  /* TAG FILTER GRID POSITION */
+  .tag-filter-wrapper {
+    grid-column: 2;
+    grid-row: 1;
+    margin-bottom: 1rem; 
+  }
+
+  /* SIDEBAR GRID POSITION */
+  .sidebar-wrapper {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    padding-top: 1rem;
+  }
+
+/* PROJECT FEED GRID POSITION */
   .projects-feed {
     grid-column: 2;
+    grid-row: 2;
+    padding-top: 1rem;
   }
 
-  /* DESKTOP LAYOUT (2-Spalten-Grid) */
+  /* DESKTOP LAYOUT (2-Spalten-Grid im Feed) */
   .desktop-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem; /* Kachel Abstand Horizontal */
+    gap: 2.5rem;
     align-items: start;
   }
 
   .feed-column {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Kachel Abstand Vertikal */
+    gap: 1.5rem;
   }
 
-  /* MOBILE LAYOUT (1 Spalte) */
+  /* MOBILE LAYOUT (1 Spalte im Feed) */
   .mobile-single-feed {
     display: none;
     flex-direction: column;
-    gap: 2rem; /* Kachel Abstand (Mobile) */
+    gap: 2rem;
   }
 
   /* ====================================================== */
@@ -299,7 +329,7 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 0.625rem; /* Titel Abstand (10px) */
+    gap: 0.625rem;
   }
 
   .media-wrapper {
@@ -356,21 +386,33 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
   /* ====================================================== */
 
   @media (max-width: 900px) {
+    /* Grid auf 1 Spalte umstellen */
     .projects-layout {
       grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 1.5rem; /* Gleichmäßige Abstände untereinander */
     }
 
+    /* 
+      Alle Wrapper auf die einzige Spalte (1) legen 
+      und die automatische Reihenfolge im HTML nutzen.
+    */
+    .tag-filter-wrapper,
+    .sidebar-wrapper,
     .projects-feed {
-      grid-column: 1;
+      grid-column: 1 !important;
+      grid-row: auto !important;
+      padding-top: 0;
     }
 
-    /* Auf Mobile/Tablets schalten wir um: */
+    /* 2-Spalten-Desktop-Feed verbergen */
     .desktop-columns {
-      display: none; /* 2-Spalten-Layout ausblenden */
+      display: none;
     }
 
+    /* 1-Spalten-Mobile-Feed aktivieren */
     .mobile-single-feed {
-      display: flex; /* 1-Spalten-Layout aktivieren */
+      display: flex;
     }
   }
 </style>

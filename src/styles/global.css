@@ -99,12 +99,9 @@ body {
 
 /* 4. Das Haupt-Element füllt den leeren Raum für den Sticky Footer */
 main {
-  flex: 1;
-  padding: var(--site-padding) var(--site-padding) 1.5rem var(--site-padding);
   max-width: 2500px;
-  margin: 0 auto;
+  padding: var(--site-padding);
 }
-
 
 
 /* Wenn die Klasse 'dark' am html-Tag anliegt */
