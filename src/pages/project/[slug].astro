@@ -90,6 +90,9 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
     </aside>
 
     <div class="projects-feed">
+
+      <!-- Dieser Anker markiert exakt die Oberkante, an der festgeklemmt werden soll -->
+      <div id="scroll-clamp-target" style="scroll-margin-top: 1.5rem;"></div>
       
       <!-- DESKTOP FEED (2 Spalten Zick-Zack) -->
       <div class="desktop-columns">
@@ -235,12 +238,20 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
     grid-column: 2;
     grid-row: 1;
     margin-bottom: 1rem;
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
   /* Platzhalter unsichtbar lassen, damit er Platz reserviert */
   .tag-filter-wrapper.placeholder {
     visibility: hidden;
     min-height: 30.2px; /* Tags höhe in pxiel */
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
   /* SIDEBAR GRID POSITION */
@@ -248,6 +259,10 @@ const rightColumn = contentBlocks.filter((_: any, index: number) => index % 2 !=
     grid-column: 1;
     grid-row: 2;
     padding-top: 1rem;
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
   /* PROJECT FEED GRID POSITION */

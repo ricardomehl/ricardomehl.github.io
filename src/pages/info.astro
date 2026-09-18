@@ -45,6 +45,10 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
 
 
     <div class="about-content">
+
+          <!-- Dieser Anker markiert exakt die Oberkante, an der festgeklemmt werden soll -->
+          <div id="scroll-clamp-target" style="scroll-margin-top: 1.5rem;"></div>
+
   <div class="cv-flex-container">
     
     <!-- CV LISTE LINKS -->
@@ -132,11 +136,15 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
     align-items: start;
   }
 
-  /* TAG FILTER PLACEHOLDER GRID POSITION */
+  /* TAG FILTER GRID POSITION */
   .tag-filter-wrapper {
     grid-column: 2;
     grid-row: 1;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; 
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
  /* Platzhalter unsichtbar lassen, damit er Platz reserviert */
@@ -145,12 +153,16 @@ const { projects } = await sanityClient.fetch<{ projects: Project[] }>(`
     min-height: 30.2px; /* Tags höhe in pxiel */
   }
 
-  /* SIDEBAR GRID POSITION */
-    .sidebar-wrapper {
-      grid-column: 1;
-      grid-row: 2;
-      padding-top: 1rem;
-    }
+    /* SIDEBAR GRID POSITION */
+  .sidebar-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 1rem;
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
+  }
 
     .about-content {
       grid-column: 2;

@@ -66,53 +66,98 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
       <TagFilter tags={uniqueTags} />
     </div>
 
-    <aside class="sidebar-wrapper">
-        <Sidebar projects={projects} transition:persist="main-sidebar" />
-    </aside>
+  
 
-    <div class="projects-feed">
 
-      <!-- DESKTOP FEED (2 Spalten Zick-Zack) -->
-      <div class="desktop-columns">
-        <div class="feed-column">
-          {leftProjects.map((project) => (
-            <a 
-              href={`/project/${project.slug.current}`} 
-              class="project-card"
-              data-tags={JSON.stringify(project.tags || [])}
-            >
-              <div class="media-wrapper">
-                {project.coverMedia?.type === 'video' && project.coverMedia.videoUrl ? (
-                  <video
-                    src={project.coverMedia.videoUrl}
-                    autoplay
-                    loop
-                    muted
-                    playsinline
-                    class="thumbnail-media"
-                  ></video>
-                ) : project.coverMedia?.imageUrl ? (
-                  <img
-                    src={project.coverMedia.imageUrl}
-                    alt={project.coverMedia.imageAlt || project.title}
-                    loading="lazy"
-                    decoding="async"
-                    class="thumbnail-media"
-                  />
-                ) : (
-                  <div class="image-placeholder">Kein Medium</div>
-                )}
-              </div>
-              <div class="project-meta">
-                <h2 class="project-title">{project.title}</h2>
-                {project.date && <span class="project-date">{project.date}</span>}
-              </div>
-            </a>
-          ))}
+      <aside class="sidebar-wrapper">
+          <Sidebar projects={projects} transition:persist="main-sidebar" />
+      </aside>
+
+      <div class="projects-feed">
+
+          <!-- Dieser Anker markiert exakt die Oberkante, an der festgeklemmt werden soll -->
+          <div id="scroll-clamp-target" style="scroll-margin-top: 1.5rem;"></div>
+
+        <!-- DESKTOP FEED (2 Spalten Zick-Zack) -->
+        <div class="desktop-columns">
+          <div class="feed-column">
+            {leftProjects.map((project) => (
+              <a 
+                href={`/project/${project.slug.current}`} 
+                class="project-card"
+                data-tags={JSON.stringify(project.tags || [])}
+              >
+                <div class="media-wrapper">
+                  {project.coverMedia?.type === 'video' && project.coverMedia.videoUrl ? (
+                    <video
+                      src={project.coverMedia.videoUrl}
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                      class="thumbnail-media"
+                    ></video>
+                  ) : project.coverMedia?.imageUrl ? (
+                    <img
+                      src={project.coverMedia.imageUrl}
+                      alt={project.coverMedia.imageAlt || project.title}
+                      loading="lazy"
+                      decoding="async"
+                      class="thumbnail-media"
+                    />
+                  ) : (
+                    <div class="image-placeholder">Kein Medium</div>
+                  )}
+                </div>
+                <div class="project-meta">
+                  <h2 class="project-title">{project.title}</h2>
+                  {project.date && <span class="project-date">{project.date}</span>}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="feed-column">
+            {rightProjects.map((project) => (
+              <a 
+                href={`/project/${project.slug.current}`} 
+                class="project-card"
+                data-tags={JSON.stringify(project.tags || [])}
+              >
+                <div class="media-wrapper">
+                  {project.coverMedia?.type === 'video' && project.coverMedia.videoUrl ? (
+                    <video
+                      src={project.coverMedia.videoUrl}
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                      class="thumbnail-media"
+                    ></video>
+                  ) : project.coverMedia?.imageUrl ? (
+                    <img
+                      src={project.coverMedia.imageUrl}
+                      alt={project.coverMedia.imageAlt || project.title}
+                      loading="lazy"
+                      decoding="async"
+                      class="thumbnail-media"
+                    />
+                  ) : (
+                    <div class="image-placeholder">Kein Medium</div>
+                  )}
+                </div>
+                <div class="project-meta">
+                  <h2 class="project-title">{project.title}</h2>
+                  {project.date && <span class="project-date">{project.date}</span>}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div class="feed-column">
-          {rightProjects.map((project) => (
+        <!-- MOBILE FEED (1 Spalte) -->
+        <div class="mobile-single-feed">
+          {projects.map((project) => (
             <a 
               href={`/project/${project.slug.current}`} 
               class="project-card"
@@ -148,47 +193,7 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
           ))}
         </div>
       </div>
-
-      <!-- MOBILE FEED (1 Spalte) -->
-      <div class="mobile-single-feed">
-        {projects.map((project) => (
-          <a 
-            href={`/project/${project.slug.current}`} 
-            class="project-card"
-            data-tags={JSON.stringify(project.tags || [])}
-          >
-            <div class="media-wrapper">
-              {project.coverMedia?.type === 'video' && project.coverMedia.videoUrl ? (
-                <video
-                  src={project.coverMedia.videoUrl}
-                  autoplay
-                  loop
-                  muted
-                  playsinline
-                  class="thumbnail-media"
-                ></video>
-              ) : project.coverMedia?.imageUrl ? (
-                <img
-                  src={project.coverMedia.imageUrl}
-                  alt={project.coverMedia.imageAlt || project.title}
-                  loading="lazy"
-                  decoding="async"
-                  class="thumbnail-media"
-                />
-              ) : (
-                <div class="image-placeholder">Kein Medium</div>
-              )}
-            </div>
-            <div class="project-meta">
-              <h2 class="project-title">{project.title}</h2>
-              {project.date && <span class="project-date">{project.date}</span>}
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-
-</div>
+</div> 
 
 </Layout>
 
@@ -282,6 +287,10 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
     grid-column: 2;
     grid-row: 1;
     margin-bottom: 1rem; 
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
   /* SIDEBAR GRID POSITION */
@@ -289,6 +298,10 @@ const rightProjects = projects.filter((_, index) => index % 2 !== 0);
     grid-column: 1;
     grid-row: 2;
     padding-top: 1rem;
+    /* Sticky Verhalten */
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10; /* Verhindert, dass Bilder beim Scrollen den Filter überlagern */
   }
 
 /* PROJECT FEED GRID POSITION */

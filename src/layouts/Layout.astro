@@ -111,28 +111,27 @@ const { title } = Astro.props;
 			<script>
 			document.addEventListener('astro:before-preparation', () => {
 				const currentScrollY = window.scrollY;
-				
-				// Wir suchen den Hauptcontainer
-				const mainLayout = document.querySelector('.projects-layout') as HTMLElement;
+				const clampTarget = document.getElementById('scroll-clamp-target') as HTMLElement;
 				
 				let targetScrollY = currentScrollY;
 
-				if (mainLayout) {
-				// offsetTop gibt uns den vertikalen Abstand vom Seitenanfang bis zur Oberkante von <main>
-				const mainTop = mainLayout.offsetTop;
+				if (clampTarget) {
+				const offsetTop = clampTarget.offsetTop;
+				
+				// 24px entspricht 1.5rem Abstand zur Browseroberkante
+				const gap = 24; 
+				const mainTopWithGap = Math.max(0, offsetTop - gap);
 
-				// Wenn wir weiter gescrollt sind als der Anfang des Main-Bereichs, 
-				// deckeln (clampen) wir die Scrollposition exakt auf die Oberkante von <main>.
-				if (currentScrollY > mainTop) {
-					targetScrollY = mainTop;
+				// Wenn wir weiter gescrollt sind als der Ankerpunkt - Gap
+				if (currentScrollY > mainTopWithGap) {
+					targetScrollY = mainTopWithGap;
 				}
 				}
 
-				// Setze die berechnete Scrollposition nach dem Laden der neuen Seite
 				document.addEventListener('astro:after-swap', () => {
 				window.scrollTo({
 					top: targetScrollY,
-					behavior: 'instant' // Verhindert sichtbares Ruckeln/Mitzittern
+					behavior: 'instant'
 				});
 				}, { once: true });
 			});
@@ -170,7 +169,7 @@ const { title } = Astro.props;
 
 /* Wrapper für Content + Footer um 100vh zu garantieren */
 .content-wrapper {
-  min-height: 100vh;
+  min-height: 110vh;
   display: flex;
   flex-direction: column;
 }
