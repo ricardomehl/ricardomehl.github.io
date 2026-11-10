@@ -7,7 +7,7 @@ const { tags = [] } = Astro.props;
 ---
 
 <section class="tag-filter-container">
-  <button class="tag-chip active" data-filter="all">Alle</button>
+  <button class="tag-chip active" data-filter="all">All</button>
   {tags.map((tag) => (
     <button class="tag-chip" data-filter={tag}>{tag}</button>
   ))}
